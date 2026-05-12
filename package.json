@@ -20,10 +20,8 @@
   "homepage": "https://github.com/axlothecook/axlothecook-sass-library#readme",
   "devDependencies": {
     "gulp": "^5.0.1",
+    "gulp-purgecss": "^8.0.0",
     "gulp-sass": "^6.0.1",
     "sass": "^1.98.0"
-  },
-  "dependencies": {
-    "gulp-purgecss": "^8.0.0"
   }
 }

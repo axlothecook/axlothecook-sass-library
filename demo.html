@@ -1,16 +1,25 @@
+<!-- Hi! Thank you for taking interest in my library. Even more kudos if you end up using it <3 -->
+<!-- One thing to note if you are looking at the html examples is that not all of it using all of the library's functionality -->
+<!-- That is bc I just wanted to demonstrate simple and fast the capability of what you can create with it -->
+<!-- I did not create custom styles or use the classes to properly to show what it would look like in a project -->
+<!-- If you are curious on how this library performs in an actual project, check out my 2 project that use it: -->
+<!-- Game shop(https://github.com/axlothecook/Gaming-shop-frontend) and Archery club(https://github.com/axlothecook/Archery-club-front-end.git) -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="css/index.css">
     <title>Axlo SASS Library</title>
 </head>
 <body>
-    <div class="global-wrapper bg-white text-cornflower">
+    <div class="global-wrapper bg-white text-black">
         <nav class="nav-width-100 p-2 border-secondary" style="border-bottom: 1px solid">
             <ul>
                 <li><h2 class="text-black fw-500">A lightweight CSS library</h2></li>
+                <li><h5 class="text-black fw-500">*Demo uses raw classes without customization</h5></li>
             </ul>
         </nav>
         <div class="container-flex-col flex-gap-1">
@@ -18,12 +27,13 @@
             <div class="container-flex-col flex-gap-1 p">
                 <h2 class="text-black t-center">Color Palette</h2>
                 <div class="container-flex-row flex-gap-0-3 fw-600">
-                    <div class="w-4 h-2 bg-wine-red"></div> 
-                    <div class="w-4 h-2 bg-dark-scarlet"></div> 
+                    <div class="w-4 h-2 bg-wine-red"></div>
+                    <div class="w-4 h-2 bg-dark-scarlet"></div>
                     <div class="w-4 h-2 bg-error-primary"></div>
-                    <div class="w-4 h-2 bg-lightning-yellow"></div> 
+                    <div class="w-4 h-2 bg-lightning-yellow"></div>
                     <div class="w-4 h-2 bg-dark-jungle-green"></div>
-                    <div class="w-4 h-2 bg-baltic-sea"></div> 
+                    <div class="w-4 h-2 bg-alabaster"></div>
+                    <div class="w-4 h-2 bg-baltic-sea"></div>
                     <div class="w-4 h-2 bg-black"></div>
                     <div class="w-4 h-2 bg-blaze-orange"></div>
                     <div class="w-4 h-2 bg-blue-dress"></div>
@@ -35,27 +45,31 @@
                     <div class="w-4 h-2 bg-cornel-red"></div>
                     <div class="w-4 h-2 bg-cornflower"></div>
                     <div class="w-4 h-2 bg-dark-blue-grey"></div>
+                    <div class="w-4 h-2 bg-deep-sapphire"></div>
                     <div class="w-4 h-2 bg-deep-sea-blue"></div>
                     <div class="w-4 h-2 bg-dune"></div>
                     <div class="w-4 h-2 bg-dusk"></div>
                     <div class="w-4 h-2 bg-elephant"></div>
+                    <div class="w-4 h-2 bg-fun-blue"></div>
                     <div class="w-4 h-2 bg-gold"></div>
                     <div class="w-4 h-2 bg-granite-green"></div>
-                    <div class="w-4 h-2 bg-grey"></div> 
-                    <div class="w-4 h-2 bg-heather"></div> 
-                    <div class="w-4 h-2 bg-husk"></div> 
-                    <div class="w-4 h-2 bg-jet-grey"></div> 
-                    <div class="w-4 h-2 bg-lemon-grass"></div> 
-                    <div class="w-4 h-2 bg-light-slate-blue"></div> 
-                    <div class="w-4 h-2 bg-navy-blue"></div> 
-                    <div class="w-4 h-2 bg-orange"></div> 
+                    <div class="w-4 h-2 bg-grey"></div>
+                    <div class="w-4 h-2 bg-heather"></div>
+                    <div class="w-4 h-2 bg-husk"></div>
+                    <div class="w-4 h-2 bg-jet-grey"></div>
+                    <div class="w-4 h-2 bg-lemon-grass"></div>
+                    <div class="w-4 h-2 bg-light-slate-blue"></div>
+                    <div class="w-4 h-2 bg-macaroni-and-cheese"></div>
+                    <div class="w-4 h-2 bg-navy-blue"></div>
+                    <div class="w-4 h-2 bg-orange"></div>
                     <div class="w-4 h-2 bg-pastel-grey"></div>
-                    <div class="w-4 h-2 bg-scampi"></div> 
-                    <div class="w-4 h-2 bg-seashell"></div> 
-                    <div class="w-4 h-2 bg-snow-drift"></div> 
-                    <div class="w-4 h-2 bg-supermarket-blue"></div> 
-                    <div class="w-4 h-2 bg-white-smoke"></div> 
-                    <div class="w-4 h-2 bg-wheatfield"></div> 
+                    <div class="w-4 h-2 bg-scampi"></div>
+                    <div class="w-4 h-2 bg-seashell"></div>
+                    <div class="w-4 h-2 bg-shark"></div>
+                    <div class="w-4 h-2 bg-snow-drift"></div>
+                    <div class="w-4 h-2 bg-supermarket-blue"></div>
+                    <div class="w-4 h-2 bg-white-smoke"></div>
+                    <div class="w-4 h-2 bg-wheatfield"></div>
                 </div>
             </div>
 
@@ -63,27 +77,30 @@
             <div class="container-flex-col flex-gap-1 p">
                 <h2 class="text-black t-center">Primary Text Colors</h2>
                 <div class="container-flex-row flex-gap-0-3 fw-600 text-black">
-                    <span class="text-wine-red">wine red</span> |  
-                    <span class="text-dark-scarlet">dark scarlet</span> |  
-                    <span class="text-blue-charcoal">blue-charcoal</span> | 
-                    <span class="text-lightning-yellow">lightning yellow</span> | 
+                    <span class="text-wine-red">wine red</span> |
+                    <span class="text-dark-scarlet">dark scarlet</span> |
+                    <span class="text-blue-charcoal">blue-charcoal</span> |
+                    <span class="text-lightning-yellow">lightning yellow</span> |
                     <span class="text-dark-jungle-green">dark jungle green</span> |
-                    <span class="text-baltic-sea">baltic sea</span> | 
-                    <span class="text-black">black</span> | 
-                    <span class="text-blaze-orange">blaze orange</span> | 
-                    <span class="text-blue-dress">blue dress</span> | 
+                    <span class="text-alabaster">alabaster</span> |
+                    <span class="text-baltic-sea">baltic sea</span> |
+                    <span class="text-black">black</span> |
+                    <span class="text-blaze-orange">blaze orange</span> |
+                    <span class="text-blue-dress">blue dress</span> |
                     <span class="text-brick-red">brick red</span> |
-                    <span class="text-bright-grey">bright grey</span>
+                    <span class="text-bright-grey">bright grey</span> |
                     <span class="text-brown">brown</span> |
                     <span class="text-casal">casal</span> |
                     <span class="text-cerulean-blue">cerulean blue</span> |
                     <span class="text-cornel-red">cornel red</span> |
                     <span class="text-cornflower">cornflower</span> |
                     <span class="text-dark-blue-grey">dark blue grey</span> |
+                    <span class="text-deep-sapphire">deep sapphire</span> |
                     <span class="text-deep-sea-blue">deep sea blue</span> |
                     <span class="text-dune">dune</span> |
                     <span class="text-dusk">dusk</span> |
                     <span class="text-elephant">elephant</span> |
+                    <span class="text-fun-blue">fun blue</span> |
                     <span class="text-gold">gold</span> |
                     <span class="text-granite-green">granite green</span> |
                     <span class="text-grey">grey</span> |
@@ -92,15 +109,17 @@
                     <span class="text-jet-grey">jet grey</span> |
                     <span class="text-lemon-grass">lemon grass</span> |
                     <span class="text-light-slate-blue">light slate blue</span> |
+                    <span class="text-macaroni-and-cheese">macaroni and cheese</span> |
                     <span class="text-navy-blue">navy blue</span> |
                     <span class="text-orange">orange</span> |
                     <span class="text-pastel-grey">pastel grey</span> |
                     <span class="text-scampi">scampi</span> |
                     <span class="text-seashell">seashell</span> |
+                    <span class="text-shark">shark</span> |
                     <span class="text-snow-drift">snow drift</span> |
                     <span class="text-supermarket-blue">supermarket blue</span> |
                     <span class="text-white-smoke">white smoke</span> |
-                    <span class="text-wheatfield">wheatfield</span>  |
+                    <span class="text-wheatfield">wheatfield</span> |
                 </div>
 
                 <br><br>
@@ -199,7 +218,7 @@
 
                 <br><br>
                 <h2 class="text-black t-center">Link example</h2>
-                <a href="#" class="text-cornflower text-hover-orange t-center fz-1-2">hover me</a>
+                <a href="#" class="text-black text-hover-orange t-center fz-1-2">hover me</a>
 
                 <hr class="mt-4 mb-4">
             </div>
@@ -233,7 +252,6 @@
             <!-- buttons -->
             <h2 class="text-black t-center">Buttons</h2>
             <div class="container-flex-row flex-gap-0-5 fw-600 p">
-                <a href="#" class="btn text-white">default btn</a>
                 <a href="#" class="btn-blue-dress text-white p-0-8 pl-1-2 pr-1-2 br-sm">click me</a>
                 <a href="#" class="btn-blaze-orange p br-sm">click me</a>
                 <a href="#" class="btn-outlined-primary text-primary p br-sm">click me</a>
@@ -248,62 +266,194 @@
 
             <hr class="mt-4 mb-4">
 
+            <h2 style="text-align: center; font-weight: 600; margin-bottom: 2rem;">Using Utilities</h2>
             <!-- cards -->
-            <h2 class="mb-2">Cards</h2>
-            <!-- <div class="card">
-            <h1 class="card-title">This is a title</h1>
-            <p class="card-body">Lorem ipsum dolor sit, amet consectetur adipisicing elit. In sunt, quo totam aliquam praesentium ducimus tempore sapiente quia nulla optio? Lorem ipsum, dolor sit amet consectetur <a href="">adipisicing elit</a>. Libero laboriosam laborum exercitationem autem commodi voluptas odio aliquid ut velit doloremque minima, quaerat dolores, corporis consequuntur totam nam id veniam maxime.</p>
-            </div>
+            <h2 class="mb-2 t-center">Cards</h2>
+            <div class="container-flex-row flex-gap-1 p" style="flex-wrap: wrap; align-items: flex-start; justify-content: center; background-color: #1c1c1c; border-radius: 16px;">
 
-            <hr class="mt-4 mb-4"> -->
+                <!-- 1. Game-type card: .default-informative-card (image + body with text) -->
+                <div class="default-informative-card" style="width: 18rem;">
+                    <div class="card-img" style="background-color: aqua;">
+                        <!-- insert your own image <img/> for demo-->
+                    </div>
+                    <div class="card-body" style="gap: .6rem;">
+                        <h2>Dragonfruit</h2>
+                        <h4 class="text-orange">Tropical, Mildly sweet</h4>
+                        <p class="fz-0-9" style="line-height: 1.4;">A striking pink-skinned cactus fruit with speckled white flesh.</p>
+                    </div>
+                </div>
 
-            <!-- grid system -->
-            <h2 class="mb-2">Grid System</h2>
-            <!-- <div class="row gap-2 justify-center">
-            <div class="col-12-xs col-5-sm col-3-xl">
-                <div class="card">
-                <h3 class="card-title">Hello, ninjas</h3>
-                <p class="card-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+                <!-- 2. Genre-type card: .default-minimal-info-card with a frosted text overlay -->
+                <div class="default-minimal-info-card" style="width: 18rem;">
+                    <!-- insert your own image for demo in src="" attribute -->
+                    <img class="loaded" src="" alt="Citrus">
+                    <div class="card-overlay-frosted"><h3>Citrus</h3></div>
                 </div>
-            </div>
-            <div class="col-12-xs col-5-sm col-3-xl">
-                <div class="card">
-                <h3 class="card-title">Hello, ninjas</h3>
-                <p class="card-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+
+                <!-- 3. Background-type card: .default-big-info-card (background image + tinted text overlay) -->
+                <!-- insert your own image for demo in style="" attribute -->
+                <div class="default-big-info-card" style="width: 22rem; background-color: aqua;">
+                    <div class="card-tint" style="background-color: #000; opacity: .45;"></div>
+                    <div class="card-text-overlay" style="flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: .5rem;">
+                        <h1 style="font-size: 2.4rem;">Mango Season</h1>
+                        <h3 style="font-size: 1.2rem;">Sweet, juicy, fleeting</h3>
+                    </div>
                 </div>
+
+                <!-- 4. Background-type card: .default-big-info-card (background image) -->
+                <!-- insert your own image for demo in style="" attribute -->
+                <div class="default-big-info-card" style="width: 22rem; background-color: aqua;"></div>
+
             </div>
-            <div class="col-12-xs col-5-sm col-3-xl">
-                <div class="card">
-                <h3 class="card-title">Hello, ninjas</h3>
-                <p class="card-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-            </div>
-            <div class="col-12-xs col-5-sm col-3-xl">
-                <div class="card">
-                <h3 class="card-title">Hello, ninjas</h3>
-                <p class="card-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-            </div>
-            </div> -->
 
             <hr class="mt-4 mb-4">
             
-            <!-- utilities -->
-            <h2>Using Utilities</h2>
-            <!-- <div class="mt-2 text-orange-dark-2 bg-orange-light-5 p-2 br-xs">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, perspiciatis!</p>
-            </div>
-            <div class="mt-2 text-secondary-dark-2 bg-secondary-light-5 p-2 br-lg">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, perspiciatis!</p>
-            </div>
-            <div class="display-i-b bg-purple text-white o-10 mt-3 mr-3 p-2">opacity 10</div>
-            <div class="display-i-b bg-purple text-white o-30 mt-3 mr-3 p-2">opacity 30</div>
-            <div class="display-i-b bg-purple text-white o-50 mt-3 mr-3 p-2">opacity 50</div>
-            <div class="display-i-b bg-purple text-white o-70 mt-3 mr-3 p-2">opacity 70</div>
-            <div class="display-i-b bg-purple text-white o-90 mt-3 mr-3 p-2">opacity 90</div>
+            <!-- ============ COMPONENT SHOWCASE ============ -->
+            <!-- (some components are normally position:fixed/absolute or animated;
+                here they're rendered in flow via inline overrides just for demo) -->
 
-            <hr class="mt-4 mb-4"> -->
+            <!-- search bar -->
+            <h2 class="text-black t-center mb-2">Search Bar</h2>
+            <div class="container-flex-col p" style="align-items: center; border-radius: 16px;">
+                <h4 class="text-white">simple-search-bar</h4>
+                <form class="simple-search-bar" action="#">
+                    <input type="text" placeholder="search games...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
 
+            <hr class="mt-4 mb-4">
+
+            <!-- inputs -->
+            <h2 class="text-black t-center mb-2">Select input and Radio input type</h2>
+            <div class="container-flex-row p" style="flex-wrap: wrap; align-items: flex-start; justify-content: center;">
+                <!-- actual select input -->
+                <div class="container-flex-col flex-gap-0-5" style="align-items: center; color: #f5ebd0">
+                    <select class="default-select p-0-8">
+                        <option>
+                            <div style="width: 1rem; height: 1rem; border: .12rem solid #f5ebd0; border-radius: 4px; background-color: #7f011f"></div>
+                            Apple
+                        </option>
+                        <option>
+                            <div style="width: 1rem; height: 1rem; border: .12rem solid #f5ebd0; border-radius: 4px; background-color: #7f011f"></div>
+                            Banana
+                        </option>
+                        <option>
+                            <div style="width: 1rem; height: 1rem; border: .12rem solid #f5ebd0; border-radius: 4px; background-color: #7f011f"></div>
+                            Cherry
+                        </option>
+                        <option>
+                            <div style="width: 1rem; height: 1rem; border: .12rem solid #f5ebd0; border-radius: 4px; background-color: #7f011f"></div>
+                            Mango
+                        </option>
+                        <option>
+                            <div style="width: 1rem; height: 1rem; border: .12rem solid #f5ebd0; border-radius: 4px; background-color: #7f011f"></div>
+                            Kiwi
+                        </option>
+                        <option>
+                            <div style="width: 1rem; height: 1rem; border: .12rem solid #f5ebd0; border-radius: 4px; background-color: #7f011f"></div>
+                            Papaya
+                        </option>
+                    </select>
+                </div>
+                <!-- radio input (imitates a select input, no actual radio type inputs) -->
+                <div class="container-flex-col flex-gap-0-5" style="align-items: center;">
+                    <div class="default-radio-input-container" style="width: 2rem">
+                        <button class="default-radio-input-btn">
+                            <div style="width: 1rem; height: 1rem; border: .12rem solid #f5ebd0; border-radius: 4px; background-color: #7f011f"></div>
+                            <h3>Apple</h3>
+                        </button>
+                        <button class="default-radio-input-btn selected">
+                            <div style="width: 1rem; height: 1rem; border: .12rem solid #f5ebd0; border-radius: 4px; background-color: #f5ebd0"></div>
+                            <h3>Banana</h3>
+                        </button>
+                        <button class="default-radio-input-btn">
+                            <div style="width: 1rem; height: 1rem; border: .12rem solid #f5ebd0; border-radius: 4px; background-color: #7f011f"></div>
+                            <h3>Cherry</h3>
+                        </button>
+                        <button class="default-radio-input-btn">
+                            <div style="width: 1rem; height: 1rem; border: .12rem solid #f5ebd0; border-radius: 4px; background-color: #7f011f"></div>
+                            <h3>Mango</h3>
+                        </button>
+                        <button class="default-radio-input-btn">
+                            <div style="width: 1rem; height: 1rem; border: .12rem solid #f5ebd0; border-radius: 4px; background-color: #7f011f"></div>
+                            <h3>Kiwi</h3>
+                        </button>
+                        <button class="default-radio-input-btn">
+                            <div style="width: 1rem; height: 1rem; border: .12rem solid #f5ebd0; border-radius: 4px; background-color: #7f011f"></div>
+                            <h3>Papaya</h3>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt-4 mb-4">
+
+            <!-- dialog -->
+            <h2 class="text-black t-center mb-2">Dialog</h2>
+            <div class="p" style="display: flex; justify-content: center; background-color: #2a2a2a; border-radius: 16px;">
+                <!-- normally a <dialog> centred over a ::backdrop; shown as a static box here -->
+                <div class="default-dialog" style="position: static; opacity: 1; margin: 0;">
+                    <p class="dialog-message">Are you sure you want to delete this game?</p>
+                    <div class="dialog-actions">
+                        <button class="btn-blue-dress">Cancel</button>
+                        <button class="btn-jet-grey text-white">Confirm</button>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="mt-4 mb-4">
+
+            <!-- error popup -->
+            <h2 class="text-black t-center mb-2">Error Popup</h2>
+            <div class="p" style="display: flex; justify-content: center;">
+                <!-- normally position:fixed and fades out via `disappear`; frozen here -->
+                <ul class="default-error-popup-wrapper" style="position: static; animation: none;">
+                    <li>Invalid input provided for email address.</li>
+                    <li>Cannot delete the developer since one of its games would be left without any developer.</li>
+                    <li>Minimum amount of characters is 2.</li>
+                </ul>
+            </div>
+
+            <hr class="mt-4 mb-4">
+
+            <!-- notification popup -->
+            <h2 class="text-black t-center mb-2">Notification Popup</h2>
+            <div class="p" style="display: flex; justify-content: center;">
+                <!-- normally position:absolute bottom/right and fades out; frozen + static here -->
+                <div class="default-notification-popup" style="position: static; animation: none; background-color: #eee;">
+                    <svg width="1.5rem" height="1.5rem" viewBox="0 0 24 24" fill="none" stroke="#0a7d28" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <h2>Game saved successfully.</h2>
+                </div>
+            </div>
+
+            <hr class="mt-4 mb-4">
+
+            <!-- spinner -->
+            <h2 class="text-black t-center mb-2">Spinner</h2>
+            <div class="container-flex-row flex-gap-1 p" style="align-items: center; justify-content: center; background-color: #1c1c1c; border-radius: 16px;">
+                <div class="container-flex-col flex-gap-0-3" style="align-items: center;">
+                    <div class="spinner"></div>
+                    <span class="text-white fz-0-8">.spinner</span>
+                </div>
+                <div class="container-flex-col flex-gap-0-3" style="align-items: center;">
+                    <div class="spinner-sm"></div>
+                    <span class="text-white fz-0-8">.spinner-sm</span>
+                </div>
+            </div>
+
+            <hr class="mt-4 mb-4">
+
+            <!-- footer (basic) -->
+            <h2 class="text-black t-center mb-2">Footer</h2>
+            <footer class="default-footer" style="gap: 3rem; padding: 4rem;">
+                <h3><a href="#">Copyright 2026</a></h3>
+                <h3><a href="#">Company name</a></h3>
+                <h3><a href="#">Terms and conditions</a></h3>
+                <h3><a href="#">Privacy Notice</a></h3>
+            </footer>
         </div>
     </div>
 </body>

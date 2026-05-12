@@ -2,9 +2,15 @@
 @use "../variables";
 
 // Native <select> styling — opt-in via class instead of a global element selector.
+// Works with single and `multiple` selects. Options can hold rich content
+// (e.g. an <svg>/<img> icon + an <h3>/<h4> label + a secondary <h3> count) —
+// the consumer supplies their own selected/unselected icon swap; the library
+// only lays the row out and hides the browser's default ::checkmark glyph.
 @mixin default-select(
   $bg-color: variables.$primary,
   $txt-color: variables.$text,
+  $option-hover-bg: variables.$secondary,   // hover + selected option background
+  $option-padding: .5rem,
   $min-width: 15rem,
   $radius: 7px,
   $transition-duration: .4s
@@ -19,6 +25,30 @@
   scrollbar-width: thin;
 
   &:focus { outline: none; }
+
+  option {
+    background-color: $bg-color;
+    color: $txt-color;
+    padding: $option-padding;
+    transition: 0.2s;
+    // a leading icon (if the option has one) shouldn't shrink
+    > svg, > img { flex-shrink: 0; }
+  }
+
+  option:hover,
+  option:checked {
+    background-color: $option-hover-bg;
+  }
+
+  option:not(:last-of-type) {
+    border-bottom: none;
+  }
+
+  // Kill the browser's default selected-option checkmark glyph (Gaming Shop
+  // abandoned it; consumers indicate selection with their own icon instead).
+  option::checkmark {
+    display: none;
+  }
 }
 
 .default-select {

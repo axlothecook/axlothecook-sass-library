@@ -7,11 +7,21 @@
 // real radio inputs here — the .default-radio-input-btn rows act as the
 // selectable items, toggled via a .selected class on the active row.
 //
-// HTML:
+// A row can hold: an optional leading icon (an <svg>/<img>, or a plain <div>
+// you style yourself — e.g. a checkbox-like square that you swap on selection),
+// a primary <h3> label, and an optional second <h3> pushed to the right (handy
+// for a count like `[ 12 ]`, mirroring the Gaming Shop genre/dev filters).
+//
+// HTML (simple):
 //   <div class="default-radio-input-container">
 //     <button class="default-radio-input-btn selected"><h3>Option A</h3></button>
 //     <button class="default-radio-input-btn"><h3>Option B</h3></button>
 //   </div>
+//
+// HTML (icon + label + count):
+//   <button class="default-radio-input-btn">
+//     <svg ...>...</svg><h3>Action</h3><h3>[ 12 ]</h3>
+//   </button>
 @mixin default-radio-input-container(
   $border-color: variables.$text,
   $scrollbar-thumb: variables.$text,
@@ -46,6 +56,12 @@
   width: 100%;
 
   h3 { font-size: 1.1rem; }
+
+  // leading icon (svg / img / a styled <div> the consumer swaps on selection)
+  > svg, > img, > div { flex-shrink: 0; }
+
+  // a second <h3> (e.g. a count like `[ 12 ]`) sits flush to the right
+  h3 + h3 { margin-left: auto; }
 
   &:hover, &.selected {
     background-color: $hover-bg;
