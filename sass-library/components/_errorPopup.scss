@@ -1,0 +1,38 @@
+@use "sass:map";
+@use "../variables";
+
+// Error-popup stack — fixed-position list of error messages that fades out.
+// Defaults mirror the Gaming Shop frontend (4s fade, orange text on dark bg).
+// Every <li> inside is styled automatically — no class needed on the <li>.
+// HTML: <ul class="default-error-popup-wrapper"><li>msg</li>...</ul>
+@mixin default-error-popup-wrapper(
+  $duration: 4s,
+  $gap: 1rem,
+  $li-text-color: map.get(variables.$colors, "orange"),
+  $li-bg-color: map.get(variables.$colors, "error-primary"),
+  $li-radius: 5px
+) {
+  position: fixed;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+  opacity: 1;
+  animation: disappear $duration ease-out forwards;
+
+  li {
+    color: $li-text-color;
+    font-weight: bold;
+    list-style-type: none;
+    background-color: $li-bg-color;
+    padding: .6rem 1rem;
+    border-radius: $li-radius;
+  }
+}
+
+.default-error-popup-wrapper {
+  @include default-error-popup-wrapper;
+}

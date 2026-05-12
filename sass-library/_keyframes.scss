@@ -1,0 +1,150 @@
+@keyframes appear-from-scale-1 {
+  0% {
+    opacity: 0;
+    scale: 0.1;
+  }
+
+  65% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes appear-from-scale-2 {
+  0% {
+    opacity: 0;
+    scale: 0.2;
+  }
+
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes appear-from-scale-3 {
+  0% {
+    opacity: 0;
+    scale: 0.3;
+  }
+
+  65% {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes load {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes disappear {
+  0% {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  80% {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+/* for a changing shape blob */
+@keyframes rotateBlob {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes changeShapeBlob {
+  0%,
+  100% {
+    border-radius: 30% 70% 70% 30% / 30% 40% 70% 70%;
+  }
+
+  20% {
+    border-radius: 40% 65% 50% 50% / 40% 35% 35% 65%;
+  }
+
+  40% {
+    border-radius: 35% 65% 65% 35% / 65% 50% 50% 25%;
+  }
+  60% {
+    border-radius: 40% 65% 50% 50% / 30% 30% 70% 75%;
+  }
+  80% {
+    border-radius: 40% 60% 40% 60% / 50% 50% 50% 60%;
+  }
+}
+
+@keyframes expandBlob {
+  0% {
+    width: 400px;
+    height: auto;
+  }
+
+  50% {
+    width: 200vw;
+    height: 200vh;
+  }
+
+  100% {
+    width: 400px;
+    height: auto;
+  }
+}
+
+/* adds blob movement in the background of the entire screen */
+@keyframes moveBlob {
+  0%,
+  100% {
+    transform: translate(4vw, 4vh);
+  }
+  20% {
+    transform: translate(60vw, 10vh);
+  }
+  35% {
+    transform: translate(45vw, 20vh);
+  }
+  50% {
+    transform: translate(30vw, 70vh);
+  }
+  65% {
+    transform: translate(53vw, 50vh);
+  }
+  80% {
+    transform: translate(20vw, 80vh);
+  }
+}

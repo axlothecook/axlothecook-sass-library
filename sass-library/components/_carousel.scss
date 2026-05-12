@@ -1,0 +1,179 @@
+@use "sass:map";
+@use "../variables";
+
+// CAROUSEL
+// ============================================================================
+// CSS structure + visuals only. The library provides the rails (sliding track,
+// absolutely-positioned arrow buttons, ticking dots). Slide content is whatever
+// you put inside .carousel-slide — typically a .default-big-info-card.
+//
+// JS responsibilities (NOT in the library — implement in the consuming component):
+//   1. Track translation: for active slide N, set
+//        transform: translateX(-N * 100%)
+//      on .carousel-track. The CSS transition below animates it; or drive it
+//      imperatively (framer-motion / svelte `tweened` / hand-rolled tween).
+//   2. Auto-advance: setInterval(() => setIndex(i => (i + 1) % n), <ms>).
+//      Keep <ms> in sync with $auto-advance-duration so the dot progress bar matches.
+//   3. Drag-to-swipe: pointerdown / pointermove / pointerup on .carousel-track.
+//      The arrow buttons are absolutely positioned (not inside the track), so
+//      dragging the track never grabs them. On release, snap to the nearest slide.
+//      While dragging, add the .dragging class to .carousel-track to kill the
+//      transition. Food-For-Dollar uses framer-motion's `drag` prop; in SvelteKit
+//      use the `motion` npm package the same way, or hand-roll (~30 LOC).
+//   4. Arrow clicks: prev / next index on .carousel-arrow-left / .carousel-arrow-right.
+//   5. Dot clicks: jump-to-index on each .carousel-dot. On slide change, restart
+//      the progress-bar animation — the reliable way is to clone the
+//      .carousel-dot-progress node so the CSS animation re-runs from 0%.
+//
+// HTML:
+//   <div class="default-carousel">
+//     <div class="carousel-content">
+//       <button class="carousel-arrow-left"><svg>...</svg></button>
+//       <button class="carousel-arrow-right"><svg>...</svg></button>
+//       <div class="carousel-track" style="transform: translateX(-{idx * 100}%)">
+//         <div class="carousel-slide">
+//           <div class="default-big-info-card" style="background-image: url(...)">
+//             <div class="card-text-overlay"><h1>Headline</h1></div>
+//           </div>
+//         </div>
+//         <div class="carousel-slide">...</div>
+//       </div>
+//     </div>
+//     <div class="carousel-dots">
+//       <button class="carousel-dot current"><div class="carousel-dot-progress"></div></button>
+//       <button class="carousel-dot"></button>
+//     </div>
+//   </div>
+//
+// Add the .paused class to .default-carousel to freeze the dot progress bar
+// (e.g. while the user hovers and you pause auto-advance).
+@mixin default-carousel(
+  $gap: .7rem,                            // between content and dots
+  $content-aspect-ratio: "16 / 9",
+  $content-radius: 10px,
+  $track-transition-duration: 0.6s,
+  $auto-advance-duration: 5s,             // sync with the JS auto-advance interval
+  // arrows
+  $arrow-color: #fff,
+  $arrow-svg-width: 2.5rem,
+  $arrow-side-offset: 0,                  // distance of each button from the content edge
+  $arrow-side-padding: 1.5rem,            // horizontal padding inside each button
+  $arrow-hover-scale: 0.9,                // shrink-on-hover (opposite of card lift)
+  $arrow-hover-duration: .3s,
+  // dots
+  $dot-gap: 2rem,
+  $dot-color: grey,
+  $dot-size: 1rem,
+  $dot-current-color: #eee,
+  $dot-current-width: 7rem,
+  $dot-current-height: 0.7rem,
+  $dot-current-radius: 20px,
+  $dot-progress-color: #8f8f8f
+) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  width: 100%;
+
+  .carousel-content {
+    position: relative;
+    width: 100%;
+    aspect-ratio: #{$content-aspect-ratio};
+    border-radius: $content-radius;
+    overflow: hidden;
+  }
+
+  // Arrow buttons — absolutely positioned over the slides. Because they're not
+  // inside .carousel-track, dragging the track never grabs them. No z-index
+  // needed: absolutely-positioned elements stack above their in-flow siblings.
+  .carousel-arrow-left,
+  .carousel-arrow-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+    width: fit-content;
+    padding: 0 $arrow-side-padding;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: $arrow-color;
+    display: flex;
+    align-items: center;
+    transition: transform $arrow-hover-duration ease;
+
+    // Keep the centering translate when adding the hover scale (transform isn't additive).
+    &:hover { transform: translateY(-50%) scale($arrow-hover-scale); }
+
+    svg { width: $arrow-svg-width; display: block; }
+  }
+
+  .carousel-arrow-left  { left:  $arrow-side-offset; }
+  .carousel-arrow-right { right: $arrow-side-offset; }
+
+  // The sliding strip. JS sets translateX to advance; the .carousel-content's
+  // overflow:hidden clips whatever's off-screen.
+  .carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform $track-transition-duration ease;
+
+    &.dragging {
+      transition: none;
+      cursor: grabbing;
+    }
+  }
+
+  .carousel-slide {
+    position: relative;
+    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-dots {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $dot-gap;
+    width: 100%;
+
+    .carousel-dot {
+      height: $dot-size;
+      width: $dot-size;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background-color: $dot-color;
+      padding: 0;
+      margin: 0;
+
+      &.current {
+        height: $dot-current-height;
+        width: $dot-current-width;
+        border-radius: $dot-current-radius;
+        background-color: $dot-current-color;
+      }
+
+      .carousel-dot-progress {
+        width: 0;
+        height: inherit;
+        border-radius: inherit;
+        background-color: $dot-progress-color;
+        animation: load $auto-advance-duration normal forwards;
+        // `load` keyframe (0 → 100% width) is defined in _keyframes.scss.
+        // JS restarts this on slide change by cloning the node.
+      }
+    }
+  }
+
+  &.paused .carousel-dot-progress {
+    animation-play-state: paused;
+  }
+}
+
+.default-carousel {
+  @include default-carousel;
+}

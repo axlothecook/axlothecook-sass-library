@@ -1,0 +1,29 @@
+@use "sass:map";
+@use "../variables";
+
+// Full-page error layout (the page SvelteKit shows via +error.svelte).
+// Centered column: heading, status line, image, home link.
+// HTML: <div class="default-error-page"><h1>..</h1><h2>..</h2><img><a class="btn">..</a></div>
+@mixin default-error-page(
+  $gap: 2rem,
+  $margin-block: 4rem,
+  $link-width: 70%,
+  $link-margin-top: 2rem
+) {
+  width: 100%;
+  margin: $margin-block auto;
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  align-items: center;
+
+  a {
+    margin-top: $link-margin-top;
+    width: $link-width;
+    text-align: center;
+  }
+}
+
+.default-error-page {
+  @include default-error-page;
+}

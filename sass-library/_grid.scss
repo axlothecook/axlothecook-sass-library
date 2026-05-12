@@ -1,0 +1,206 @@
+@use "sass:math";
+@use "sass:map";
+@use "./variables";
+@use "./utilities";
+@use "./breakpoints";
+
+
+$grid-columns: 12;
+$grid-gaps: (
+  "0": 0,
+  "xxs": .5rem,
+  "xs": .8rem,
+  "sm": 1rem,
+  "md": 1.5rem,
+  "lg": 2rem,
+  "xl": 2.5rem,
+  "xxl": 3rem,
+);
+
+$flex-gaps: (
+  "0": 0,
+  "0-1": .1rem,
+  "0-2": .2rem,
+  "0-3": .3rem,
+  "0-5": .5rem,
+  "0-8": .8rem,
+  "0-9": .9rem,
+  "1": 1rem,
+  "1-5": 1.5rem,
+  "2": 2rem,
+  "2-5": 2.5rem,
+  "3": 3rem,
+  "4": 4rem,
+  "5": 5rem,
+  "5-5": 5.5rem
+);
+
+
+$justify-content-layout-values: start, end, flex-start, flex-end, center, space-between, space-around, space-evenly, stretch, baseline, normal, initial, inherit, unset;
+$justify-items-layout-values: start, end, flex-start, flex-end, center, normal, stretch, baseline, initial, inherit, unset;
+$items-layout-values: start, end, flex-start, flex-end, center, normal, stretch, baseline, initial, inherit, unset;
+$content-layout-values: start, end, flex-start, flex-end, center, space-between, space-around, space-evenly, baseline, normal, stretch, initial, inherit, unset;
+
+.row-wrap {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.row-nowrap {
+  display: flex;
+  flex-direction: row;
+}
+
+.column-wrap {
+  display: flex;
+  flex-flow: column wrap;
+}
+
+.column-nowrap {
+  display: flex;
+  flex-direction: column;
+}
+
+// base layout classes
+.global-wrapper {
+  position: relative;
+  min-height: fit-content;
+  height: 100%; 
+  // background-color: variables.$primary; 
+}
+
+.container-block {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  @extend .p-0, .pl-1-5, .pr-1-5;
+  // padding: 0; // 1.5rem
+}
+
+.container-flex-col {
+  width: 100%;
+  @extend .column-nowrap;
+  // gap: map.get($flex-gaps, "2"); // 2rem
+}
+
+.container-flex-row {
+  width: 100%;
+  @extend .row-wrap;
+  // gap: map.get($flex-gaps, "2"); // 2rem
+}
+
+// flex gaps
+@each $key, $val in $flex-gaps {
+  // .flex-gap-#{$key} > * {
+  //   padding: $val;
+  // }
+  .flex-gap-#{$key} {
+    // margin-left: -$val;
+    // margin-right: -$val;
+    gap: $val;
+  }
+}
+
+// grid gaps
+@each $key, $val in $grid-gaps {
+  .grid-gap-#{$key} > * {
+    padding: $val;
+  }
+  .grid-gap-#{$key} {
+    margin-left: -$val;
+    margin-right: -$val;
+  }
+}
+
+// justify content classes
+@each $val in $justify-content-layout-values {
+  .justify-content-#{$val} {
+    justify-content: $val;
+  }
+}
+
+// justify items classes
+@each $val in $justify-items-layout-values {
+  .justify-items-#{$val} {
+    justify-items: $val;
+  }
+}
+
+// align content classes
+@each $val in $content-layout-values {
+  .align-content-#{$val} {
+    align-content: $val;
+  }
+}
+
+// align items classes
+@each $val in $items-layout-values {
+  .align-items-#{$val} {
+    align-items: $val;
+  }
+}
+
+// col classes
+@include breakpoints.xxs {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-xxs {
+      box-sizing: border-box;
+      flex-grow: 0;
+      width: math.div($i * 100%, $grid-columns);
+    }
+  }
+}
+@include breakpoints.xs {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-xs {
+      box-sizing: border-box;
+      flex-grow: 0;
+      width: math.div($i * 100%, $grid-columns);
+    }
+  }
+}
+@include breakpoints.sm {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-sm {
+      box-sizing: border-box;
+      flex-grow: 0;
+      width: math.div($i * 100%, $grid-columns);
+    }
+  }
+}
+@include breakpoints.md {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-md {
+      box-sizing: border-box;
+      flex-grow: 0;
+      width: math.div($i * 100%, $grid-columns);
+    }
+  }
+}
+@include breakpoints.lg {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-lg {
+      box-sizing: border-box;
+      flex-grow: 0;
+      width: math.div($i * 100%, $grid-columns);
+    }
+  }
+}
+@include breakpoints.xl {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-xl {
+      box-sizing: border-box;
+      flex-grow: 0;
+      width: math.div($i * 100%, $grid-columns);
+    }
+  }
+}
+@include breakpoints.xxl {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-xxl {
+      box-sizing: border-box;
+      flex-grow: 0;
+      width: math.div($i * 100%, $grid-columns);
+    }
+  }
+}

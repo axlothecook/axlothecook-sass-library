@@ -1,0 +1,153 @@
+@use "sass:map";
+@use "./variables";
+
+// HOVER / UNDERLINE LINK EFFECTS
+// ============================================================================
+// Two animated underline effects for nav links (and anything link-like). Both:
+//   - wrap a text element (h1..h4 / a / span) in a `position: relative` box,
+//   - draw an `::after` underline bar that animates IN on `:hover`,
+//   - keep the bar shown when the wrapper has the `.current` modifier (put it
+//     on whichever link is the open page; the underline stays while you're on
+//     that page),
+//   - recolour the text on `:hover` AND on `.current` — these two states get
+//     their own colour knobs (`$hover-text-color` / `$current-text-color`).
+//
+// The underline bar itself is ONE colour (`$bar-color`) — it does not change
+// between hover and current; only its presence / shape animates.
+//
+// They differ only in how the bar appears:
+//   1. `.drop-underline-effect` — a full-width bar that fades in and slides
+//      down a few px from behind the text (Food-For-Dollar / Gaming Shop style).
+//      Defaults: blue text on hover, $secondary text when current.
+//   2. `.grow-underline-effect` — a bar that grows from zero width to full;
+//      WHERE it grows from is injectable via `$origin`: `center` (spreads both
+//      ways), `left` (left→right), or `right` (right→left).
+//      Defaults: blue text on hover, gold text when current (archery website).
+//
+// HTML:
+//   <a class="drop-underline-effect current"><h1>Home</h1></a>
+//   <a class="drop-underline-effect"><h1>Shop</h1></a>
+//   <a class="grow-underline-effect current"><span>About</span></a>
+
+
+// 1. DROP-IN UNDERLINE — Food-For-Dollar / Gaming Shop style
+// ----------------------------------------------------------------------------
+@mixin drop-underline-effect(
+  $bar-color: map.get(variables.$colors, "supermarket-blue"),
+  $bar-thickness: 2px,
+  $bar-rest-offset: -3px,         // where the (hidden) bar sits
+  $bar-active-offset: -7px,       // where it slides to once shown
+  $hover-text-color: map.get(variables.$colors, "supermarket-blue"),
+  $current-text-color: variables.$secondary,
+  $text-size: 1.2rem,
+  $text-weight: 400,
+  $duration: .15s
+) {
+  position: relative;
+
+  h1, h2, h3, h4, a, span {
+    font-size: $text-size;
+    font-weight: $text-weight;
+    line-height: variables.$base-line-height;
+    cursor: pointer;
+    transition: color $duration ease-in-out;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: $bar-rest-offset;
+    width: 100%;
+    height: $bar-thickness;
+    background-color: $bar-color;
+    visibility: hidden;
+    transition:
+      visibility $duration ease-in-out,
+      bottom $duration ease-in-out;
+  }
+
+  &:hover::after,
+  &.current::after {
+    visibility: visible;
+    bottom: $bar-active-offset;
+  }
+
+  &:hover h1, &:hover h2, &:hover h3, &:hover h4, &:hover a, &:hover span {
+    color: $hover-text-color;
+  }
+
+  &.current h1, &.current h2, &.current h3, &.current h4, &.current a, &.current span {
+    color: $current-text-color;
+  }
+}
+
+.drop-underline-effect {
+  @include drop-underline-effect;
+}
+
+
+// 2. GROW-OUT UNDERLINE — archery website style (and configurable origin)
+// ----------------------------------------------------------------------------
+// $origin: center | left | right — where the bar grows from.
+@mixin grow-underline-effect(
+  $origin: center,
+  $bar-color: map.get(variables.$colors, "supermarket-blue"),
+  $bar-thickness: 2px,
+  $bar-offset: -3px,              // how far below the text the bar sits
+  $hover-text-color: map.get(variables.$colors, "fun-blue"),
+  $current-text-color: map.get(variables.$colors, "macaroni-and-cheese"),
+  $text-size: 1.2rem,
+  $text-weight: 400,
+  $duration: .2s
+) {
+  @if $origin != center and $origin != left and $origin != right {
+    @error "grow-underline-effect: $origin must be `center`, `left`, or `right` (got `#{$origin}`).";
+  }
+
+  position: relative;
+
+  h1, h2, h3, h4, a, span {
+    font-size: $text-size;
+    font-weight: $text-weight;
+    line-height: variables.$base-line-height;
+    cursor: pointer;
+    transition: color $duration ease-in-out;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: $bar-offset;
+    width: 0;
+    height: $bar-thickness;
+    background-color: $bar-color;
+    transition: width $duration ease-in-out;
+
+    @if $origin == center {
+      left: 50%;
+      transform: translateX(-50%);
+    } @else if $origin == left {
+      left: 0;
+    } @else {
+      right: 0;
+    }
+  }
+
+  &:hover::after,
+  &.current::after {
+    width: 100%;
+  }
+
+  &:hover h1, &:hover h2, &:hover h3, &:hover h4, &:hover a, &:hover span {
+    color: $hover-text-color;
+  }
+
+  &.current h1, &.current h2, &.current h3, &.current h4, &.current a, &.current span {
+    color: $current-text-color;
+  }
+}
+
+.grow-underline-effect {
+  @include grow-underline-effect;
+}

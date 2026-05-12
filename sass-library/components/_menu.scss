@@ -1,0 +1,258 @@
+@use "../variables";
+
+// MENU PANELS
+// ============================================================================
+// Three side-anchored vertical menu panels, all built on a shared base:
+//   - `position: fixed`, pinned `top: 0; bottom: 0` (full screen height),
+//   - anchored to one edge of the screen via `$side` (`left` → `left: 0`,
+//     `right` → `right: 0`); slide-in animations enter from that edge,
+//   - inner layout is `display: flex; flex-direction: column` (HARDCODED),
+//     with an injectable `$gap` (default .5rem) and `$padding` (default 1.5rem),
+//   - `overflow-y: auto` — if the options overflow, the panel scrolls,
+//   - dark background by default (`$secondary`), injectable.
+//
+// The three flavours:
+//   1. `.expand-on-hover-menu` — always visible as a narrow icon strip
+//      (`$collapsed-width`, default 5rem); on `:hover` it animates its WIDTH
+//      out to `$expanded-width` (default 33.333vw) and reveals option labels
+//      next to the icons. Admin-dashboard sidebar. Pure CSS, no JS.
+//   2. `.fullscreen-menu` — hidden off-screen; when given `.open` it slides in
+//      to cover the WHOLE viewport (`width: 100vw`). For replacing a cramped
+//      top navbar on small screens behind a hamburger icon. Needs JS to toggle
+//      `.open` (a `.menu-toggle` helper is provided for the icon button).
+//   3. `.half-screen-menu` — same as 2 but slides in to cover exactly HALF the
+//      viewport (`$panel-width`, default 50vw), with a `.menu-backdrop` sibling
+//      overlay shading the visible half (modal-style). Toggle `.open` on BOTH
+//      the panel and the backdrop. For big screens.
+//
+// All slide motion is CSS `transition` on `transform` (so toggling `.open`
+// animates both ways) — no @keyframes.
+
+
+// Shared base — the bits all three panels have in common.
+// $side: `left` | `right` — which screen edge the panel is anchored to (and,
+// for the sliding variants, the edge it enters from).
+@mixin menu-panel-base(
+  $side: left,
+  $gap: .5rem,
+  $padding: 1.5rem,
+  $bg-color: variables.$secondary
+) {
+  @if $side != left and $side != right {
+    @error "menu-panel-base: $side must be `left` or `right` (got `#{$side}`).";
+  }
+
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  @if $side == left { left: 0; } @else { right: 0; }
+
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  padding: $padding;
+  overflow-y: auto;
+
+  background-color: $bg-color;
+}
+
+
+// 1. EXPAND-ON-HOVER SIDEBAR — admin dashboard
+// ----------------------------------------------------------------------------
+// HTML:
+//   <nav class="expand-on-hover-menu">
+//     <a class="menu-option"><svg ...>...</svg><span>Dashboard</span></a>
+//     <a class="menu-option"><svg ...>...</svg><span>Games</span></a>
+//     ...
+//   </nav>
+// The <span> labels are hidden (opacity 0, no wrap) while collapsed and fade in
+// when the panel is hovered. Size your icons to taste; .menu-option keeps them
+// from shrinking.
+@mixin expand-on-hover-menu(
+  $collapsed-width: 5rem,
+  $expanded-width: 33.333vw,
+  $side: left,
+  $gap: .5rem,
+  $padding: 1.5rem,
+  $bg-color: variables.$secondary,
+  $duration: .3s
+) {
+  @include menu-panel-base($side, $gap, $padding, $bg-color);
+
+  width: $collapsed-width;
+  transition: width $duration ease;
+
+  &:hover {
+    width: $expanded-width;
+  }
+
+  .menu-option {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+
+    > svg,
+    > img {
+      flex-shrink: 0;
+    }
+
+    span {
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity $duration ease;
+    }
+  }
+
+  &:hover .menu-option span {
+    opacity: 1;
+  }
+}
+
+.expand-on-hover-menu {
+  @include expand-on-hover-menu;
+}
+
+
+// 2. FULL-SCREEN SLIDE-IN MENU — mobile hamburger
+// ----------------------------------------------------------------------------
+// HTML:
+//   <button class="menu-toggle"><svg ...>...</svg></button>   <!-- hamburger -->
+//   <nav class="fullscreen-menu">
+//     <a class="menu-option"><svg ...></svg><span>Home</span></a>
+//     ...
+//   </nav>
+// JS: toggle.addEventListener('click', () => nav.classList.toggle('open'));
+// Typical use: hide your normal top-nav links below ~640px, show .menu-toggle
+// and this panel instead (wrap in your breakpoint mixin in the component).
+@mixin fullscreen-menu(
+  $side: left,
+  $gap: .5rem,
+  $padding: 1.5rem,
+  $bg-color: variables.$secondary,
+  $duration: .3s
+) {
+  @include menu-panel-base($side, $gap, $padding, $bg-color);
+
+  $closed-x: -100%;
+  @if $side == right { $closed-x: 100%; }
+
+  width: 100vw;
+  transform: translateX($closed-x);
+  transition: transform $duration ease;
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  .menu-option {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+
+    > svg,
+    > img {
+      flex-shrink: 0;
+    }
+  }
+}
+
+.fullscreen-menu {
+  @include fullscreen-menu;
+}
+
+
+// 3. HALF-SCREEN SLIDE-IN MENU + SHADE — big-screen hamburger
+// ----------------------------------------------------------------------------
+// HTML:
+//   <button class="menu-toggle"><svg ...></svg></button>
+//   <div class="menu-backdrop"></div>
+//   <nav class="half-screen-menu">
+//     <a class="menu-option"><svg ...></svg><span>Home</span></a>
+//     ...
+//   </nav>
+// JS: toggle click → add `.open` to BOTH .half-screen-menu and .menu-backdrop;
+//     backdrop click → remove `.open` from both.
+@mixin half-screen-menu(
+  $panel-width: 50vw,
+  $side: left,
+  $gap: .5rem,
+  $padding: 1.5rem,
+  $bg-color: variables.$secondary,
+  $duration: .3s
+) {
+  @include menu-panel-base($side, $gap, $padding, $bg-color);
+
+  $closed-x: -100%;
+  @if $side == right { $closed-x: 100%; }
+
+  width: $panel-width;
+  transform: translateX($closed-x);
+  transition: transform $duration ease;
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  .menu-option {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+
+    > svg,
+    > img {
+      flex-shrink: 0;
+    }
+  }
+}
+
+// Sibling overlay that shades the page while .half-screen-menu is open.
+// Sits below the panel (lower z-index), above the page content.
+@mixin menu-backdrop(
+  $backdrop-color: rgba(0, 0, 0, 0.5),
+  $duration: .3s
+) {
+  position: fixed;
+  inset: 0;
+  background-color: $backdrop-color;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity $duration ease,
+    visibility $duration ease;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+// A bare clickable box for the hamburger icon — drop your <svg> inside.
+@mixin menu-toggle($size: 2.5rem) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: $size;
+  height: $size;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  > svg,
+  > img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.half-screen-menu {
+  @include half-screen-menu;
+}
+
+.menu-backdrop {
+  @include menu-backdrop;
+}
+
+.menu-toggle {
+  @include menu-toggle;
+}

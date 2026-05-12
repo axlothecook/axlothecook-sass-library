@@ -1,0 +1,28 @@
+@use "sass:map";
+@use "../variables";
+@use "../utilities";
+
+// <textarea> styling. Applied globally to all <textarea> elements via the rule
+// below, and also exposed as a mixin so you can re-apply it with a custom
+// background colour (e.g. @include default-textarea($bg-color: #fff)).
+@mixin default-textarea(
+  $bg-color: map.get(variables.$colors, "white-smoke")
+) {
+  width: stretch;
+  min-height: 15rem;
+  height: fit-content;
+  resize: none;
+  font-size: map.get(utilities.$utilities, "font-size", "values", "0-9");   // .9rem
+  line-height: variables.$base-line-height * 2;
+  font-family: variables.$base-font-family-secondary;
+  padding: map.get(utilities.$utilities, "padding", "values", "0-6")
+           map.get(utilities.$utilities, "padding", "values", "0-5");        // .6rem .5rem
+  background-color: $bg-color;
+  color: map.get(variables.$colors, "black");
+  margin-top: map.get(utilities.$utilities, "margin-top", "values", "0-7");  // .7rem
+  border-radius: map.get(utilities.$utilities, "border-radius", "values", "xs"); // 7px
+}
+
+textarea {
+  @include default-textarea;
+}

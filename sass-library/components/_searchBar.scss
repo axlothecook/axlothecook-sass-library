@@ -1,0 +1,188 @@
+@use "sass:map";
+@use "../variables";
+@use "./dialog";
+
+// SEARCH BAR
+// ============================================================================
+// Three pieces:
+//   1. .simple-search-bar — a real functional search form (input + submit),
+//      e.g. for a navbar. Standalone; no JS beyond the form submit.
+//   2. .fake-search-bar — a div styled to LOOK like a search input but inert.
+//      Always visible; clicking it opens .search-bar-dialog. While the dialog
+//      is open, add .dialog-open to the fake bar so it goes visibility:hidden
+//      and doesn't peek out from behind the popup.
+//   3. .search-bar-dialog — a native <dialog>, itself transparent/borderless,
+//      holding a real input row + a suggestions dropdown. The input row and the
+//      dropdown fuse into one continuous rounded shape (input: rounded top /
+//      square bottom; dropdown: square top / rounded bottom, no top border) —
+//      the Food-For-Dollar look. The dropdown REUSES _radioInput.scss classes
+//      (.default-radio-input-container + .default-radio-input-btn) — picking a
+//      suggestion is single-select → navigate to a results page, same nature as
+//      a price filter.
+//
+// JS (consuming component):
+//   - .fake-search-bar click  → dialog.showModal() + add .dialog-open to the fake bar
+//   - dialog close            → remove .dialog-open from the fake bar
+//   - suggestion-row click    → navigate to results + dialog.close()
+//   - backdrop click to close → dialog.addEventListener('click', e => {
+//                                 if (e.target === dialog) dialog.close();
+//                               });
+
+// ---- 1. simple functional search bar -------------------------------------
+@mixin simple-search-bar(
+  $bg-color: variables.$primary,
+  $txt-color: variables.$text,
+  $border-color: variables.$text,
+  $input-width: 15rem,
+  $gap: 1rem,
+  $padding: .7rem .5rem,
+  $radius: 7px,
+  $font-weight: 500
+) {
+  display: flex;
+  gap: $gap;
+
+  input,
+  button {
+    font-size: variables.$base-font-size;
+    font-weight: $font-weight;
+    padding: $padding;
+    border-radius: $radius;
+    border: variables.$base-border-thickness solid $border-color;
+    background-color: $bg-color;
+    color: $txt-color;
+  }
+
+  input {
+    width: $input-width;
+  }
+
+  button {
+    cursor: pointer;
+    transition: background-color .4s, color .4s;
+
+    &:hover {
+      background-color: $txt-color;
+      color: $bg-color;
+    }
+  }
+}
+
+.simple-search-bar {
+  @include simple-search-bar;
+}
+
+// ---- 2. fake search bar (a div mimicking an input) -----------------------
+@mixin fake-search-bar(
+  $bg-color: map.get(variables.$colors, "alabaster"),
+  $txt-color: map.get(variables.$colors, "black"),
+  $gap: .6rem,
+  $radius: 25px,
+  $padding: 1rem 0 1rem 1.3rem,
+  $min-width: 17rem,
+  $flex-grow: 0.7
+) {
+  flex-grow: $flex-grow;
+  min-width: $min-width;
+  display: flex;
+  align-items: center;
+  gap: $gap;
+  background-color: $bg-color;
+  border-radius: $radius;
+  padding: $padding;
+  cursor: pointer;
+
+  // The inert "input look" / placeholder text inside it. Clicks pass through to
+  // the wrapper, which is what JS listens on to open the dialog.
+  span,
+  input {
+    font-size: 1rem;
+    color: $txt-color;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    pointer-events: none;
+  }
+}
+
+.fake-search-bar {
+  @include fake-search-bar;
+}
+
+// Hide the fake bar while the search dialog is open (avoids the "peek" bug).
+.fake-search-bar.dialog-open {
+  visibility: hidden;
+}
+
+// ---- 3. the search dialog (real input + suggestions dropdown) ------------
+// The <dialog> itself is invisible (transparent, borderless, no padding) — it's
+// just a positioning + backdrop container. All visible styling lives on the
+// input row and the dropdown, which fuse into one rounded shape.
+@mixin search-bar-dialog(
+  $inner-bg: map.get(variables.$colors, "alabaster"),
+  $txt-color: map.get(variables.$colors, "black"),
+  $input-gap: .6rem,
+  $input-padding: 1rem 0 1rem 1.3rem,
+  $radius: 25px,
+  $max-width: 43rem,
+  $width: 90%,
+  $row-hover-bg: map.get(variables.$colors, "white-smoke"),
+  $backdrop-color: rgba(0, 0, 0, 0.5),
+  $animate: true,
+  $animation-duration: 0.3s
+) {
+  @include dialog.dialog-overlay-base($backdrop-color, $animate, $animation-duration);
+
+  width: $width;
+  max-width: $max-width;
+  padding: 0;
+  background-color: transparent;
+
+  // The real input row — top of the fused shape.
+  .search-dialog-input {
+    display: flex;
+    align-items: center;
+    gap: $input-gap;
+    background-color: $inner-bg;
+    padding: $input-padding;
+    border-top-left-radius: $radius;
+    border-top-right-radius: $radius;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+    input {
+      font-size: 1rem;
+      color: $txt-color;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      width: 100%;
+    }
+  }
+
+  // The suggestions dropdown reuses .default-radio-input-container /
+  // .default-radio-input-btn from _radioInput.scss; here we just override its
+  // corners + border so it fuses under the input row.
+  .default-radio-input-container {
+    background-color: $inner-bg;
+    border: none;
+    border-bottom-left-radius: $radius;
+    border-bottom-right-radius: $radius;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+
+    .default-radio-input-btn {
+      background-color: $inner-bg;
+      color: $txt-color;
+
+      &:hover,
+      &.selected {
+        background-color: $row-hover-bg;
+      }
+    }
+  }
+}
+
+.search-bar-dialog {
+  @include search-bar-dialog;
+}

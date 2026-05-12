@@ -1,0 +1,151 @@
+@use "./variables";
+@use "sass:color";
+
+// 5 action states. "none" means no pseudo-state — emit the bare selector.
+$actions: (
+    "none": null,
+    "hover": ":hover",
+    "active": ":active",
+    "visited": ":visited",
+    "focus": ":focus",
+);
+
+// 5 position scopes. "none" means no positional pseudo — emit just the action.
+$positions: (
+    "none": null,
+    "first-child": ":first-child",
+    "last-child": ":last-child",
+    "first-of-type": ":first-of-type",
+    "last-of-type": ":last-of-type",
+);
+
+// Build the position segment of a class name. "none" → "" (no segment).
+@function _pos-slug($pos-key) {
+    @if $pos-key == "none" { @return ""; }
+    @return "-#{$pos-key}";
+}
+
+// Build the action segment. "none" → "" (no segment).
+@function _action-slug($action-key) {
+    @if $action-key == "none" { @return ""; }
+    @return "-#{$action-key}";
+}
+
+// Concatenate the pseudo-selectors for a (position, action) pair.
+// position=none, action=none      → ""              (bare element)
+// position=first-child, action=none → ":first-child"
+// position=none, action=hover     → ":hover"
+// position=first-child, action=hover → ":first-child:hover"
+@function _pseudo($pos-pseudo, $action-pseudo) {
+    $out: "";
+    @if $pos-pseudo != null { $out: $out + $pos-pseudo; }
+    @if $action-pseudo != null { $out: $out + $action-pseudo; }
+    @return $out;
+}
+
+// Emit a single text-color rule for one (color, shade, position, action) combo.
+@mixin _text-rule($class-name, $pseudo, $color-value) {
+    .#{$class-name} {
+        @if $pseudo == "" {
+            color: $color-value;
+        } @else {
+            &#{$pseudo} {
+                color: $color-value;
+            }
+        }
+    }
+}
+
+@each $key, $val in variables.$colors {
+    // -------- text: full action × position grid for base color --------
+    @each $pos-key, $pos-pseudo in $positions {
+        @each $action-key, $action-pseudo in $actions {
+            $name: "text#{_pos-slug($pos-key)}#{_action-slug($action-key)}-#{$key}";
+            @include _text-rule($name, _pseudo($pos-pseudo, $action-pseudo), $val);
+        }
+    }
+
+    // -------- bg (unchanged) --------
+    .bg-#{$key} {
+        background-color: $val;
+    }
+
+    // -------- border: all-sides + 4 sides, each with plain + :hover --------
+    .border-#{$key} { border-color: $val; }
+    .border-top-#{$key} { border-top-color: $val; }
+    .border-right-#{$key} { border-right-color: $val; }
+    .border-bottom-#{$key} { border-bottom-color: $val; }
+    .border-left-#{$key} { border-left-color: $val; }
+
+    .border-hover-#{$key} { &:hover { border-color: $val; } }
+    .border-top-hover-#{$key} { &:hover { border-top-color: $val; } }
+    .border-right-hover-#{$key} { &:hover { border-right-color: $val; } }
+    .border-bottom-hover-#{$key} { &:hover { border-bottom-color: $val; } }
+    .border-left-hover-#{$key} { &:hover { border-left-color: $val; } }
+
+    // -------- light + dark shades (skip pure black/white) --------
+    @if ($val != #000 and $val != #fff) {
+
+        // light variations
+        @for $i from 1 through 9 {
+            $shade: color.mix(#fff, $val, $i * 10%);
+
+            @each $pos-key, $pos-pseudo in $positions {
+                @each $action-key, $action-pseudo in $actions {
+                    $name: "text#{_pos-slug($pos-key)}#{_action-slug($action-key)}-#{$key}-light-#{$i}";
+                    @include _text-rule($name, _pseudo($pos-pseudo, $action-pseudo), $shade);
+                }
+            }
+
+            .bg-#{$key}-light-#{$i} { background-color: $shade; }
+
+            .border-#{$key}-light-#{$i} { border-color: $shade; }
+            .border-top-#{$key}-light-#{$i} { border-top-color: $shade; }
+            .border-right-#{$key}-light-#{$i} { border-right-color: $shade; }
+            .border-bottom-#{$key}-light-#{$i} { border-bottom-color: $shade; }
+            .border-left-#{$key}-light-#{$i} { border-left-color: $shade; }
+
+            .border-hover-#{$key}-light-#{$i} { &:hover { border-color: $shade; } }
+            .border-top-hover-#{$key}-light-#{$i} { &:hover { border-top-color: $shade; } }
+            .border-right-hover-#{$key}-light-#{$i} { &:hover { border-right-color: $shade; } }
+            .border-bottom-hover-#{$key}-light-#{$i} { &:hover { border-bottom-color: $shade; } }
+            .border-left-hover-#{$key}-light-#{$i} { &:hover { border-left-color: $shade; } }
+        }
+
+        // dark variations
+        @for $i from 1 through 9 {
+            $shade: color.mix(#000, $val, $i * 10%);
+
+            @each $pos-key, $pos-pseudo in $positions {
+                @each $action-key, $action-pseudo in $actions {
+                    $name: "text#{_pos-slug($pos-key)}#{_action-slug($action-key)}-#{$key}-dark-#{$i}";
+                    @include _text-rule($name, _pseudo($pos-pseudo, $action-pseudo), $shade);
+                }
+            }
+
+            .bg-#{$key}-dark-#{$i} { background-color: $shade; }
+
+            .border-#{$key}-dark-#{$i} { border-color: $shade; }
+            .border-top-#{$key}-dark-#{$i} { border-top-color: $shade; }
+            .border-right-#{$key}-dark-#{$i} { border-right-color: $shade; }
+            .border-bottom-#{$key}-dark-#{$i} { border-bottom-color: $shade; }
+            .border-left-#{$key}-dark-#{$i} { border-left-color: $shade; }
+
+            .border-hover-#{$key}-dark-#{$i} { &:hover { border-color: $shade; } }
+            .border-top-hover-#{$key}-dark-#{$i} { &:hover { border-top-color: $shade; } }
+            .border-right-hover-#{$key}-dark-#{$i} { &:hover { border-right-color: $shade; } }
+            .border-bottom-hover-#{$key}-dark-#{$i} { &:hover { border-bottom-color: $shade; } }
+            .border-left-hover-#{$key}-dark-#{$i} { &:hover { border-left-color: $shade; } }
+        }
+    }
+}
+
+.transparent {
+    background-color: transparent;
+    backdrop-filter: blur(20px);
+    background-image: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, .3),
+        rgba(0, 0, 0, .2)
+    );
+}

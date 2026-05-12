@@ -1,0 +1,72 @@
+@use "sass:map";
+@use "../variables";
+
+// NOTIFICATION POPUP
+// ============================================================================
+// A small transient notice that drops into a corner of the page and fades
+// itself out (via the shared `disappear` keyframe). Modelled on the
+// Mini-Messaging-Board warning popup — the defaults reproduce it exactly —
+// but kept generic: the library only styles the wrapper + the message text.
+// To show an icon, drop your own inline <svg> (or <img>) as the first child;
+// it sits to the left of the message and is sized to $icon-size.
+//
+// HTML:
+//   <div class="default-notification-popup">
+//     <svg ...>...</svg>            <!-- optional -->
+//     <h2>Saved successfully.</h2>
+//   </div>
+//
+// For different "kinds" (success / info / error), give the wrapper a colour
+// utility class instead of baking variants in here, e.g.
+//   <div class="default-notification-popup bg-error-primary text-white">…</div>
+//
+// JS: insert the node, then `setTimeout(() => node.remove(), <duration>ms)`
+// (the animation runs once; without `forwards` it's left in its 0% state
+// — visible — so remove the node when it ends).
+@mixin default-notification-popup(
+  $bg-color: map.get(variables.$colors, "white"),
+  $text-color: map.get(variables.$colors, "shark"),
+  $position: absolute,           // or `fixed` if it should ignore scrolling
+  $bottom: 5rem,
+  $right: 5rem,
+  $padding: .8rem 7rem .8rem .8rem,   // big right pad leaves room past the text
+  $radius: 7px,
+  $gap: .3rem,                   // between the icon and the message
+  $icon-size: 1.5rem,            // applied to a direct <svg>/<img> child
+  $message-size: .8rem,
+  $message-weight: 600,
+  $duration: 3.1s,
+  $z-index: 5
+) {
+  position: $position;
+  bottom: $bottom;
+  right: $right;
+  background-color: $bg-color;
+  color: $text-color;
+  display: flex;
+  align-items: center;
+  gap: $gap;
+  padding: $padding;
+  border: none;
+  border-radius: $radius;
+  visibility: visible;
+  opacity: 1;
+  animation: disappear $duration ease-out;
+  z-index: $z-index;
+
+  > svg,
+  > img {
+    width: $icon-size;
+    height: $icon-size;
+    flex-shrink: 0;
+  }
+
+  h2 {
+    font-size: $message-size;
+    font-weight: $message-weight;
+  }
+}
+
+.default-notification-popup {
+  @include default-notification-popup;
+}

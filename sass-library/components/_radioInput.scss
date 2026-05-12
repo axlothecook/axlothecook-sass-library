@@ -1,0 +1,75 @@
+@use "sass:map";
+@use "../variables";
+
+// "Radio input container" — a scrollable list of button-rows styled to look like
+// an open native <select>. Use when you need full control over the option rows
+// (icons, custom layout, etc.) instead of real <option> elements. There are no
+// real radio inputs here — the .default-radio-input-btn rows act as the
+// selectable items, toggled via a .selected class on the active row.
+//
+// HTML:
+//   <div class="default-radio-input-container">
+//     <button class="default-radio-input-btn selected"><h3>Option A</h3></button>
+//     <button class="default-radio-input-btn"><h3>Option B</h3></button>
+//   </div>
+@mixin default-radio-input-container(
+  $border-color: variables.$text,
+  $scrollbar-thumb: variables.$text,
+  $scrollbar-track: variables.$primary,
+  $height: 10rem,
+  $min-width: 15rem
+) {
+  width: 100%;
+  height: $height;
+  min-width: $min-width;
+  border: 1px solid $border-color;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: 0.4s;
+  overflow-y: scroll;
+  scrollbar-color: $scrollbar-thumb $scrollbar-track;
+  scrollbar-width: thin;
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin default-radio-btn(
+  $bg-color: variables.$primary,
+  $hover-bg: variables.$secondary
+) {
+  display: flex;
+  gap: .7rem;
+  align-items: center;
+  background-color: $bg-color;
+  padding: .3rem .5rem;
+  transition: 0.2s;
+  width: 100%;
+
+  h3 { font-size: 1.1rem; }
+
+  &:hover, &.selected {
+    background-color: $hover-bg;
+  }
+
+  &:first-of-type {
+    padding-top: .5rem;
+    border-radius: 8px 0 0 0;
+  }
+
+  &:last-of-type {
+    padding-bottom: .5rem;
+    border-radius: 0 0 0 8px;
+  }
+
+  &:not(:last-of-type) {
+    border-bottom: none;
+  }
+}
+
+.default-radio-input-container {
+  @include default-radio-input-container;
+}
+
+.default-radio-input-btn {
+  @include default-radio-btn;
+}
