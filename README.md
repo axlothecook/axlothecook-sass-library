@@ -28,6 +28,4 @@ $base-font-size: 5px;
 ## If you find any bugs or have questions, open a github issue on the library and I'll try to respond asap.
 
 ## Inspo advice
-<ul>
-- visit [this website](https://getcssscan.com/css-box-shadow-examples) for more box-shadow ideas
-</ul>
+visit [this website](https://getcssscan.com/css-box-shadow-examples) for more box-shadow ideas
