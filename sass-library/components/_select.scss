@@ -1,0 +1,60 @@
+@use "sass:map";
+@use "../variables";
+
+// Native <select> styling — opt-in via class instead of a global element selector.
+@mixin default-select(
+  $bg-color: variables.$primary,
+  $txt-color: variables.$text,
+  $min-width: 15rem,
+  $radius: 7px,
+  $transition-duration: .4s
+) {
+  min-width: $min-width;
+  border-radius: $radius;
+  background-color: $bg-color;
+  border-color: $txt-color;
+  cursor: pointer;
+  transition: $transition-duration;
+  scrollbar-color: $txt-color $bg-color;
+  scrollbar-width: thin;
+
+  &:focus { outline: none; }
+}
+
+.default-select {
+  @include default-select;
+}
+
+// Global rules — ::picker() targets the <select> element's pseudo-popup, which
+// has no class addressing, so these can't be scoped to .default-select.
+// The opening/closing fade is handled here via @starting-style + allow-discrete.
+select, ::picker(select) {
+  appearance: base-select;
+}
+
+select::picker-icon {
+  color: map.get(variables.$colors, "primary-text");
+  transition: 0.4s rotate;
+}
+
+select:open::picker-icon {
+  rotate: 180deg;
+}
+
+::picker(select) {
+  opacity: 0;
+  height: 10rem;
+  transition: all 0.4s allow-discrete;
+  border-color: map.get(variables.$colors, "primary-text");
+  border-radius: 8px;
+}
+
+::picker(select):popover-open {
+  opacity: 1;
+}
+
+@starting-style {
+  ::picker(select):popover-open {
+    opacity: 0;
+  }
+}

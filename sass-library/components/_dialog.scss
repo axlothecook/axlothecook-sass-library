@@ -1,0 +1,117 @@
+@use "sass:map";
+@use "../variables";
+@use "./button";
+
+// DIALOG
+// ============================================================================
+// Shared overlay base + a confirmation-dialog component built on top of it.
+
+// The bits every native <dialog> modal needs: no border, a styled ::backdrop,
+// and an optional fade-in/out (opacity + transition-behavior: allow-discrete +
+// @starting-style — animates display/overlay, which are discrete properties;
+// modern browsers only, graceful elsewhere). Each dialog adds its own width /
+// padding / background / border-radius on top of this.
+@mixin dialog-overlay-base(
+  $backdrop-color: rgba(0, 0, 0, 0.5),
+  $animate: true,
+  $animation-duration: 0.3s
+) {
+  border: none;
+
+  &::backdrop {
+    background-color: $backdrop-color;
+  }
+
+  @if $animate {
+    opacity: 0;
+    transition:
+      opacity $animation-duration ease,
+      display $animation-duration ease allow-discrete,
+      overlay $animation-duration ease allow-discrete;
+
+    &[open] {
+      opacity: 1;
+    }
+
+    &::backdrop {
+      opacity: 0;
+      transition:
+        opacity $animation-duration ease,
+        display $animation-duration ease allow-discrete,
+        overlay $animation-duration ease allow-discrete;
+    }
+
+    &[open]::backdrop {
+      opacity: 1;
+    }
+
+    @starting-style {
+      &[open] { opacity: 0; }
+      &[open]::backdrop { opacity: 0; }
+    }
+  }
+}
+
+// Confirmation dialog — a small "are you sure?" modal: white box with rounded
+// corners, a message, and an action row of buttons. Opened via .showModal()
+// (the browser renders ::backdrop, traps focus, centers it via margin: auto).
+//
+// The buttons aren't colored here — give each a library color class, e.g.
+// recommended: <button class="btn-blue-dress">Cancel</button> +
+//              <button class="bg-jet-grey-dark-3 text-white">Confirm</button>.
+//
+// HTML:
+//   <dialog class="default-dialog">
+//     <p class="dialog-message">Are you sure you want to delete this game?</p>
+//     <div class="dialog-actions">
+//       <button class="btn-blue-dress">Cancel</button>
+//       <button class="bg-jet-grey-dark-3 text-white">Confirm</button>
+//     </div>
+//   </dialog>
+//
+// JS: dialog.showModal(); wire each button's click to its action + dialog.close().
+// Backdrop-click-to-close: dialog.addEventListener('click', e => {
+//   if (e.target === dialog) dialog.close();
+// });
+@mixin default-dialog(
+  $bg-color: map.get(variables.$colors, "white"),
+  $text-color: map.get(variables.$colors, "black"),
+  $width: 90%,
+  $max-width: 28rem,
+  $padding: 1.5rem,
+  $radius: 12px,
+  $gap: 1.5rem,                       // between message and the action row
+  $btn-gap: .8rem,                    // between buttons in the action row
+  $btn-padding: .6rem 1.4rem,
+  $btn-radius: 7px,
+  $backdrop-color: rgba(0, 0, 0, 0.5),
+  $animate: true,
+  $animation-duration: 0.3s
+) {
+  @include dialog-overlay-base($backdrop-color, $animate, $animation-duration);
+
+  width: $width;
+  max-width: $max-width;
+  padding: $padding;
+  border-radius: $radius;
+  background-color: $bg-color;
+  color: $text-color;
+
+  .dialog-message {
+    margin-bottom: $gap;
+  }
+
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: $btn-gap;
+
+    button {
+      @include button.dialog-btn($padding: $btn-padding, $radius: $btn-radius);
+    }
+  }
+}
+
+.default-dialog {
+  @include default-dialog;
+}

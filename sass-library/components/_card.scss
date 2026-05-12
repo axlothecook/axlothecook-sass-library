@@ -1,0 +1,559 @@
+@use "sass:map";
+@use "../variables";
+
+// NOTE on aspect-ratio params: they're passed as strings (e.g. "16 / 9") and
+// interpolated, because writing 16 / 9 unquoted triggers Sass's deprecated
+// slash-as-division. A plain number (e.g. 1.7777) also works as a value.
+
+// ---------------------------------------------------------------------------
+// Shared building blocks
+// ---------------------------------------------------------------------------
+
+// Image-area structure shared by all image-based card variants. The image is an
+// <img> absolutely positioned inside a relative/overflow-hidden box, starting at
+// opacity 0 and fading in when .loaded is added on load. An .img-spinner-overlay
+// child (from _spinner.scss) can sit alongside the <img> while it loads.
+// $object-fit: `cover` (default) crops to fill; `contain` shows the whole image
+// (e.g. logos / wide banners that shouldn't be cropped).
+@mixin card-image-base(
+  $aspect-ratio: "1 / 1",
+  $placeholder-bg: map.get(variables.$colors, "dark-charcoal"),
+  $radius: 10px,
+  $fade-duration: 0.3s,
+  $object-fit: cover
+) {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: #{$aspect-ratio};
+  border-radius: $radius;
+  background-color: $placeholder-bg;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: $object-fit;
+    object-position: center;
+    opacity: 0;
+    transition: opacity $fade-duration ease;
+
+    &.loaded { opacity: 1; }
+  }
+}
+
+// Centered text overlay laid over an image (absolute, fills the parent, flex
+// centers its content, sizes h1..h4). $frosted: true adds the semi-transparent
+// blurred panel behind the text (the "genre card" look); false (default) leaves
+// it transparent — just text directly on the image. The parent must be
+// position: relative (card-image-base already is).
+@mixin card-overlay(
+  $frosted: true,
+  $frosted-bg: rgba(255, 255, 255, 0.2),
+  $frosted-blur: 1px,
+  $radius: 10px,
+  $text-color: map.get(variables.$colors, "black"),
+  $h1-size: 1.6rem,  $h1-weight: 800,
+  $h2-size: 1.4rem,  $h2-weight: 600,
+  $h3-size: 1.2rem,  $h3-weight: 600,
+  $h4-size: 1rem,    $h4-weight: 600
+) {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: $text-color;
+
+  @if $frosted {
+    background: $frosted-bg;
+    backdrop-filter: blur($frosted-blur);
+    border-radius: $radius;
+  }
+
+  h1 { font-size: $h1-size; font-weight: $h1-weight; }
+  h2 { font-size: $h2-size; font-weight: $h2-weight; }
+  h3 { font-size: $h3-size; font-weight: $h3-weight; }
+  h4 { font-size: $h4-size; font-weight: $h4-weight; }
+}
+
+// Two ready-to-use overlay classes. Put one inside an image-area element (e.g.
+// inside a .default-minimal-info-card or a .profile-card-img):
+//   .card-overlay-frosted — text on a semi-transparent blurred panel
+//   .card-overlay-plain   — text directly on the image, no panel
+.card-overlay-frosted {
+  @include card-overlay($frosted: true);
+}
+
+.card-overlay-plain {
+  @include card-overlay($frosted: false);
+}
+
+// Opt-in hover lift — pairs with any card variant.
+@mixin card-hover-lift($scale: 1.05, $duration: .3s) {
+  transition: transform $duration;
+  &:hover { transform: scale($scale); }
+}
+
+// 3D flip on hover — rotates 180° around the X-axis to reveal the back face.
+// Requires a .card-flip-inner wrapper with .card-front + .card-back children.
+// Exposed standalone so it can wrap any card variant; also used by .default-flip-card.
+@mixin card-flip(
+  $duration: 0.6s,
+  $back-bg: variables.$secondary,
+  $back-color: variables.$text,
+  $back-padding: 1rem,
+  $back-radius: 10px,
+  $perspective: 1000px
+) {
+  perspective: $perspective;
+
+  .card-flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform $duration;
+    transform-style: preserve-3d;
+  }
+
+  &:hover .card-flip-inner {
+    transform: rotateX(180deg);
+  }
+
+  .card-front,
+  .card-back {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+
+  .card-back {
+    transform: rotateX(180deg);
+    background: $back-bg;
+    color: $back-color;
+    padding: $back-padding;
+    border-radius: $back-radius;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 1. Informative card — image on top, plain content div below
+// ---------------------------------------------------------------------------
+// The bottom div carries only structural styling (bg, padding, radius, shadow);
+// it has no opinions about its contents — the consuming app decides what goes in.
+//
+// HTML:
+//   <div class="default-informative-card">
+//     <div class="card-img"><img class:loaded={...} src="..."></div>
+//     <div class="card-body"><!-- anything --></div>
+//   </div>
+@mixin default-informative-card(
+  $img-aspect-ratio: "16 / 9",
+  $img-placeholder-bg: map.get(variables.$colors, "dark-charcoal"),
+  $outer-radius: 20px,
+  $inner-radius: 10px,
+  $img-fade-duration: 0.3s,
+  $body-bg: rgba(255, 255, 255, 0.09),
+  $body-color: #ccc,
+  $body-padding: 1.2rem,
+  $body-gap: .5rem,
+  $max-height: 24rem,
+  $hover-lift: true
+) {
+  height: 100%;
+  max-height: $max-height;
+  display: flex;
+  flex-direction: column;
+
+  @if $hover-lift { @include card-hover-lift; }
+
+  .card-img {
+    @include card-image-base(
+      $aspect-ratio: $img-aspect-ratio,
+      $placeholder-bg: $img-placeholder-bg,
+      $radius: $inner-radius,
+      $fade-duration: $img-fade-duration
+    );
+    border-top-left-radius: $outer-radius;
+    border-top-right-radius: $outer-radius;
+  }
+
+  .card-body {
+    color: $body-color;
+    background: $body-bg;
+    border-bottom-left-radius: $outer-radius;
+    border-bottom-right-radius: $outer-radius;
+    box-shadow: variables.$base-box-shadow;
+    display: flex;
+    flex-direction: column;
+    padding: $body-padding;
+    gap: $body-gap;
+  }
+}
+
+.default-informative-card {
+  @include default-informative-card;
+}
+
+// ---------------------------------------------------------------------------
+// 2. Minimal-info card — an image area meant to hold a text overlay on top.
+//    Drop a .card-overlay-frosted or .card-overlay-plain inside it for the text.
+// ---------------------------------------------------------------------------
+// HTML:
+//   <div class="default-minimal-info-card">
+//     <!-- optional: <div class="img-spinner-overlay"><div class="spinner"></div></div> -->
+//     <img class:loaded={...} src="...">
+//     <div class="card-overlay-frosted"><h3>Label</h3></div>
+//   </div>
+@mixin default-minimal-info-card(
+  $aspect-ratio: "1 / 1",
+  $placeholder-bg: map.get(variables.$colors, "dark-charcoal"),
+  $radius: 10px,
+  $fade-duration: 0.3s,
+  $object-fit: cover,
+  $hover-lift: true
+) {
+  @include card-image-base(
+    $aspect-ratio: $aspect-ratio,
+    $placeholder-bg: $placeholder-bg,
+    $radius: $radius,
+    $fade-duration: $fade-duration,
+    $object-fit: $object-fit
+  );
+
+  @if $hover-lift { @include card-hover-lift; }
+}
+
+.default-minimal-info-card {
+  @include default-minimal-info-card;
+}
+
+// ---------------------------------------------------------------------------
+// 3. Only-image card — just a fading-in image in a rounded box, nothing else
+// ---------------------------------------------------------------------------
+// HTML:
+//   <div class="default-only-image-card"><img class:loaded={...} src="..."></div>
+@mixin default-only-image-card(
+  $aspect-ratio: "1 / 1",
+  $placeholder-bg: map.get(variables.$colors, "dark-charcoal"),
+  $radius: 10px,
+  $fade-duration: 0.3s,
+  $hover-lift: true
+) {
+  @include card-image-base(
+    $aspect-ratio: $aspect-ratio,
+    $placeholder-bg: $placeholder-bg,
+    $radius: $radius,
+    $fade-duration: $fade-duration
+  );
+
+  @if $hover-lift { @include card-hover-lift; }
+}
+
+.default-only-image-card {
+  @include default-only-image-card;
+}
+
+// ---------------------------------------------------------------------------
+// 4. Flip card — image card that flips on hover (instead of scaling) to reveal
+//    a back face with text. The .card-front carries the image styling directly.
+// ---------------------------------------------------------------------------
+// HTML:
+//   <div class="default-flip-card">
+//     <div class="card-flip-inner">
+//       <div class="card-front"><img class:loaded={...} src="..."></div>
+//       <div class="card-back"><h3>Hidden text</h3></div>
+//     </div>
+//   </div>
+@mixin default-flip-card(
+  $aspect-ratio: "1 / 1",
+  $placeholder-bg: map.get(variables.$colors, "dark-charcoal"),
+  $radius: 10px,
+  $fade-duration: 0.3s,
+  $flip-duration: 0.6s,
+  $back-bg: variables.$secondary,
+  $back-color: variables.$text,
+  $back-padding: 1rem,
+  $perspective: 1000px
+) {
+  aspect-ratio: #{$aspect-ratio};
+  border-radius: $radius;
+
+  @include card-flip(
+    $duration: $flip-duration,
+    $back-bg: $back-bg,
+    $back-color: $back-color,
+    $back-padding: $back-padding,
+    $back-radius: $radius,
+    $perspective: $perspective
+  );
+
+  .card-front {
+    @include card-image-base(
+      $aspect-ratio: $aspect-ratio,
+      $placeholder-bg: $placeholder-bg,
+      $radius: $radius,
+      $fade-duration: $fade-duration
+    );
+  }
+}
+
+.default-flip-card {
+  @include default-flip-card;
+}
+
+// ---------------------------------------------------------------------------
+// 5. Small news card — fixed-width vertical stack: rounded image on top, bare
+//    title text directly below (no body container, no shadow, no padding wrapper).
+//    The "news feed / caption card" shape. Hover-lift off by default.
+// ---------------------------------------------------------------------------
+// HTML:
+//   <div class="default-small-news-card">
+//     <div class="card-img"><img class:loaded={...} src="..."></div>
+//     <h3>Headline text</h3>          <!-- or any content -->
+//   </div>
+@mixin default-small-news-card(
+  $width: 21rem,
+  $gap: 13px,
+  $img-aspect-ratio: "16 / 9",
+  $img-placeholder-bg: map.get(variables.$colors, "dark-charcoal"),
+  $img-radius: 20px,
+  $img-fade-duration: 0.3s,
+  $hover-lift: false
+) {
+  width: $width;
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+
+  @if $hover-lift { @include card-hover-lift; }
+
+  .card-img {
+    @include card-image-base(
+      $aspect-ratio: $img-aspect-ratio,
+      $placeholder-bg: $img-placeholder-bg,
+      $radius: $img-radius,
+      $fade-duration: $img-fade-duration
+    );
+  }
+}
+
+.default-small-news-card {
+  @include default-small-news-card;
+}
+
+// ---------------------------------------------------------------------------
+// 6. Big info card — image + multi-line text overlay (richer text than minimal-info-card).
+//    Image can come from inline background-image OR a child <img> element.
+//    The text overlay uses padding (not absolute top/margins) and a flex layout
+//    so consumers can position content at bottom-left (default) or top-left
+//    stacked with gaps. Optional .card-tint layer dims the image.
+// ---------------------------------------------------------------------------
+// HTML (option a — inline background-image, bottom-left text):
+//   <div class="default-big-info-card" style="background-image: url(...)">
+//     <div class="card-tint"></div>                  <!-- optional -->
+//     <div class="card-text-overlay">
+//       <h1>Headline that wraps if long</h1>
+//     </div>
+//   </div>
+//
+// HTML (option b — <img> with .loaded fade-in, stacked top-left):
+//   <div class="default-big-info-card">
+//     <img class:loaded={...} src="..." alt="...">
+//     <div class="card-text-overlay" style="flex-direction: column; align-items: flex-start; gap: 1rem">
+//       <h1>...</h1><h2>...</h2><h3>...</h3><h4>...</h4>
+//     </div>
+//   </div>
+@mixin default-big-info-card(
+  $aspect-ratio: "16 / 9",
+  $placeholder-bg: map.get(variables.$colors, "dark-charcoal"),
+  $radius: 10px,
+  $fade-duration: 0.3s,
+  $text-color: #fff,
+  $text-padding: 2rem,
+  $text-flex-direction: row,
+  $text-align-items: flex-end,
+  $text-gap: 0,
+  $tint-color: null,        // null = no tint applied; pass a color to dim the image
+  $tint-opacity: 0.8,
+  $h1-size: 4.8rem,   $h1-weight: 700,
+  $h2-size: 4rem,     $h2-weight: 500,
+  $h3-size: 3rem,     $h3-weight: 500,
+  $h4-size: 2.5rem,   $h4-weight: 500,
+  $hover-lift: false
+) {
+  position: relative;
+  overflow: hidden;
+  border-radius: $radius;
+  background-color: $placeholder-bg;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  aspect-ratio: #{$aspect-ratio};
+
+  @if $hover-lift { @include card-hover-lift; }
+
+  // Optional <img> child for option b (fades in on .loaded).
+  > img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0;
+    transition: opacity $fade-duration ease;
+    &.loaded { opacity: 1; }
+  }
+
+  // Optional tint layer — only styled if $tint-color is passed.
+  .card-tint {
+    position: absolute;
+    inset: 0;
+    border-radius: $radius;
+    @if $tint-color != null {
+      background-color: $tint-color;
+      opacity: $tint-opacity;
+    }
+  }
+
+  .card-text-overlay {
+    position: absolute;
+    inset: 0;
+    padding: $text-padding;
+    color: $text-color;
+    display: flex;
+    flex-direction: $text-flex-direction;
+    align-items: $text-align-items;
+    gap: $text-gap;
+
+    h1 { font-size: $h1-size; font-weight: $h1-weight; }
+    h2 { font-size: $h2-size; font-weight: $h2-weight; }
+    h3 { font-size: $h3-size; font-weight: $h3-weight; }
+    h4 { font-size: $h4-size; font-weight: $h4-weight; }
+  }
+}
+
+.default-big-info-card {
+  @include default-big-info-card;
+}
+
+// ---------------------------------------------------------------------------
+// 7. Split card — image on the left, content div on the right (2-column grid).
+//    Column ratio injectable; padding between the inner elements and the parent
+//    box injectable: $padding: 0 → flush look (image + content edge-to-edge,
+//    e.g. an archery "front news" poster), $padding: 2rem + a border → a
+//    Gaming Shop "individual game" layout. The parent's overflow:hidden +
+//    border-radius clips the children, so corners just work without rounding
+//    each child individually. The image gets the standard fade-in-on-load and
+//    has room for an .img-spinner-overlay (from _spinner.scss). The content
+//    div's internals are entirely the consumer's call.
+// ---------------------------------------------------------------------------
+// HTML:
+//   <div class="default-split-card">
+//     <div class="split-card-img">
+//       <!-- optional: <div class="img-spinner-overlay"><div class="spinner"></div></div> -->
+//       <img class:loaded={...} src="..." alt="...">
+//     </div>
+//     <div class="split-card-content"><!-- anything --></div>
+//   </div>
+@mixin default-split-card(
+  $grid-cols: "1fr 2fr",            // image column / content column
+  $padding: 2rem,                   // between inner elements and the parent box
+  $gap: 0,                          // between the image column and the content column
+  $radius: 20px,
+  $border: none,
+  $img-aspect-ratio: "1 / 1",
+  $img-placeholder-bg: map.get(variables.$colors, "dark-charcoal"),
+  $img-fade-duration: 0.3s
+) {
+  display: grid;
+  grid-template-columns: #{$grid-cols};
+  gap: $gap;
+  padding: $padding;
+  border: $border;
+  border-radius: $radius;
+  overflow: hidden;
+
+  .split-card-img {
+    @include card-image-base(
+      $aspect-ratio: $img-aspect-ratio,
+      $placeholder-bg: $img-placeholder-bg,
+      $radius: 0,                   // parent's overflow:hidden + $radius clips it
+      $fade-duration: $img-fade-duration
+    );
+  }
+
+  // .split-card-content is a structural slot only — no library styling; the
+  // consumer styles what goes inside it.
+}
+
+.default-split-card {
+  @include default-split-card;
+}
+
+// ---------------------------------------------------------------------------
+// 8. Profile card — vertical stack for a "thing with a banner image": a banner
+//    image (optionally with a .card-overlay-frosted / .card-overlay-plain text
+//    overlay), a title (an <h2> wrapped in .default-profile-title), and a bare
+//    content slot for everything else. Covers individual genre/dev pages and
+//    individual sponsor/merchant profile pages. The image gets the standard
+//    fade-in-on-load + .img-spinner-overlay slot; $object-fit is injectable
+//    ($object-fit: contain for logos / wide banners you don't want cropped).
+// ---------------------------------------------------------------------------
+// HTML:
+//   <div class="default-profile-card">
+//     <div class="profile-card-img">
+//       <!-- optional: <div class="img-spinner-overlay"><div class="spinner"></div></div> -->
+//       <img class:loaded={...} src="..." alt="...">
+//       <!-- optional text-over-image: <div class="card-overlay-frosted"><h2>Name</h2></div> -->
+//     </div>
+//     <div class="default-profile-title"><h2>Name</h2></div>   <!-- if not using an overlay -->
+//     <div class="profile-card-content"><!-- description, links, buttons, anything --></div>
+//   </div>
+@mixin default-profile-card(
+  $gap: 2rem,                       // between image / title / content
+  $img-aspect-ratio: "3.7 / 1",
+  $img-placeholder-bg: map.get(variables.$colors, "white"),
+  $img-radius: 10px,
+  $img-fade-duration: 0.3s,
+  $img-object-fit: contain,         // logos / banners shown whole, not cropped
+  $title-size: 1.7rem,
+  $title-color: map.get(variables.$colors, "black"),
+  $title-weight: 400
+) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+
+  .profile-card-img {
+    @include card-image-base(
+      $aspect-ratio: $img-aspect-ratio,
+      $placeholder-bg: $img-placeholder-bg,
+      $radius: $img-radius,
+      $fade-duration: $img-fade-duration,
+      $object-fit: $img-object-fit
+    );
+  }
+
+  .default-profile-title h2 {
+    font-size: $title-size;
+    color: $title-color;
+    font-weight: $title-weight;
+  }
+
+  // .profile-card-content is a structural slot only — no library styling; the
+  // consumer makes it flex/grid and styles what goes inside.
+}
+
+.default-profile-card {
+  @include default-profile-card;
+}

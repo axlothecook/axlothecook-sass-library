@@ -1,0 +1,94 @@
+@use "sass:map";
+@use "sass:color";
+@use "../variables";
+@use "../utilities";
+@use "../functions";
+
+@mixin btn($bg-color: variables.$primary) {
+  width: fit-content;
+  height: fit-content;
+  font-size: variables.$base-font-size;
+  font-weight: variables.$base-font-weight;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-block;
+  border: 0;
+  background-color: $bg-color;
+  transition: background-color .4s, color .4s;
+}
+
+@mixin btn-swap($color-a, $color-b) {
+  @include btn($bg-color: $color-a);
+  color: $color-b;
+  &:hover {
+    background-color: $color-b;
+    color: $color-a;
+  }
+}
+
+// Bare button styling for use inside modal/dialog action rows. No colors baked
+// in — apply a .bg-* / .text-* / .btn-* class for color. Used by _dialog.scss.
+@mixin dialog-btn($padding: .6rem 1.4rem, $radius: 7px) {
+  border: none;
+  cursor: pointer;
+  padding: $padding;
+  border-radius: $radius;
+  transition: background-color .3s, color .3s;
+}
+
+.btn {
+  @include btn;
+  &:hover {
+    background-color: color.adjust(variables.$primary, $lightness: 14%);
+    color: variables.$text;
+  }
+}
+
+@each $key, $val in variables.$colors {
+  .btn-#{$key} {
+    @include btn($bg-color: $val);
+    &:hover {
+      background-color: color.adjust($val, $lightness: 14%);
+      color: map.get(variables.$colors, "white");
+    }
+  }
+  .btn-outlined-#{$key} {
+    @include btn($bg-color: transparent);
+    border: variables.$base-border-thickness solid $val;
+    &:hover {
+      background-color: $val;
+      color: map.get(variables.$colors, "white");
+    }
+  }
+  @if $val != transparent {
+    .btn-complement-#{$key} {
+      @include btn($bg-color: $val);
+      color: functions.light-complement($val, 35%);
+      &:hover {
+        background-color: functions.light-complement($val, 35%);
+        color: $val;
+      }
+    }
+  }
+}
+
+// pre-generated swap-button classes for common pairs
+.btn-swap-primary-text {
+  @include btn-swap(variables.$primary, variables.$text);
+}
+
+.btn-swap-text-primary {
+  @include btn-swap(variables.$text, variables.$primary);
+}
+
+.btn-swap-secondary-text {
+  @include btn-swap(variables.$secondary, variables.$text);
+}
+
+.btn-swap-transparent-text {
+  @include btn-swap(transparent, variables.$text);
+}
+
+.btn-swap-transparent-primary {
+  @include btn-swap(transparent, variables.$primary);
+}

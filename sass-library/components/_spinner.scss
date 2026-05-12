@@ -1,0 +1,61 @@
+@use "sass:map";
+@use "../variables";
+
+// The rotating spinner circle. Inject size, ring thickness, ring color,
+// the active-arc color, and speed. Relies on the `spin` keyframe in _keyframes.
+@mixin spinner(
+  $size: 3rem,
+  $thickness: 4px,
+  $ring-color: rgba(255, 255, 255, 0.2),
+  $arc-color: variables.$text,
+  $speed: 0.8s
+) {
+  width: $size;
+  height: $size;
+  border: $thickness solid $ring-color;
+  border-top-color: $arc-color;
+  border-radius: 50%;
+  animation: spin $speed linear infinite;
+}
+
+// Full-viewport dimmed overlay with a centered spinner.
+// HTML: <div class="loading-overlay"><div class="spinner"></div></div>
+@mixin loading-overlay($backdrop: rgba(0, 0, 0, 0.4), $z-index: 9999) {
+  position: fixed;
+  inset: 0;
+  background: $backdrop;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-index;
+  pointer-events: all;
+}
+
+// Item-scoped overlay — sits inside a position:relative parent (e.g. an image
+// wrapper) and covers just that element while its content loads.
+// HTML: <div class="img-spinner-overlay"><div class="spinner"></div></div>
+@mixin img-spinner-overlay($backdrop: rgba(0, 0, 0, 0.2), $z-index: 1) {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-index;
+  background: $backdrop;
+}
+
+.spinner {
+  @include spinner;
+}
+
+.spinner-sm {
+  @include spinner($size: 1.5rem, $thickness: 2px);
+}
+
+.loading-overlay {
+  @include loading-overlay;
+}
+
+.img-spinner-overlay {
+  @include img-spinner-overlay;
+}

@@ -1,0 +1,43 @@
+@use "sass:map";
+@use "../variables";
+
+// Generic input — base padding, radius, font sizing. Caller picks bg/text colors.
+@mixin input-base($bg-color: map.get(variables.$colors, "white"), $txt-color: map.get(variables.$colors, "black")) {
+  padding: .6rem .5rem;
+  border-radius: 7px;
+  width: stretch;
+  background-color: $bg-color;
+  color: $txt-color;
+  border: 0;
+  font-size: variables.$base-font-size;
+  font-family: variables.$base-font-family-secondary;
+
+  &:focus { outline: none; }
+}
+
+// Form-field wrapper: stacks <label> + <input> + optional <h4 class="form-hint">.
+@mixin form-field($gap: .3rem) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+// The small grey helper line that appears below inputs. Color defaults to grey.
+@mixin form-hint($color: map.get(variables.$colors, "grey"), $font-size: .8rem) {
+  font-size: $font-size;
+  color: $color;
+}
+
+// Ready-to-use: the Gaming Shop form-input style (white bg, no border, .6rem .5rem padding).
+.form-input {
+  @include input-base;
+}
+
+// HTML: <div class="form-field"><label for="x">...</label><input class="form-input" id="x"><h4 class="form-hint">* hint</h4></div>
+.form-field {
+  @include form-field;
+}
+
+.form-hint {
+  @include form-hint;
+}

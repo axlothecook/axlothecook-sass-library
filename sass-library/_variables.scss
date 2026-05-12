@@ -1,0 +1,103 @@
+@use "sass:map";
+
+// theme colors
+$primary: #7f011f !default;
+$secondary: #5a0317 !default; 
+$text: #f5ebd0 !default;
+$error-primary: #020618 !default;
+$error-secondary: #d32752 !default;
+$info: #f6c31c !default;
+$light-bg-primary: #ccc !default;
+$light-bg-secondary: #f9f9f9 !default;
+$dark-bg-primary: #242424 !default;
+$dark-bg-secondary: #252432 !default;
+
+// color palette
+$colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "primary-text": $text,
+  "error-primary": $error-primary,
+  "error-secondary": $error-secondary,
+  "info-primary": $info,
+  "light-bg-primary": $light-bg-primary,
+  "light-bg-secondary": $light-bg-secondary,
+  "dark-bg-primary": $dark-bg-primary,
+  "dark-bg-secondary": $dark-bg-secondary,
+  "alabaster": #f3f6f8,
+  "baltic-sea": #252432,
+  "black": #000,
+  "blaze-orange": #FF6600,
+  "blue-charcoal": #020618,
+  "blue-dress": #187ff5,
+  "brick-red": #d32752,
+  "bright-grey": #3C3A58,
+  "brown": brown,
+  "casal": #336075,
+  "cerulean-blue": #304CA8,
+  "cornel-red": #b91c1c,
+  "cornflower": #747bff,
+  "dark-blue-grey": #213547,
+  "dark-charcoal": #2a2a2a,
+  "dark-jungle-green": #242424,
+  "dark-scarlet": #5a0317,
+  "deep-sapphire": #102E66,
+  "deep-sea-blue": #005180,
+  "dune": #323135,
+  "dusk": #504D75,
+  "elephant": #0e374e,
+  "fun-blue": #2352A7,
+  "gold": goldenrod,
+  "granite-green": #8b8676, 
+  "grey": grey,
+  "heather": #bec2d0,
+  "husk": #AFA44F,
+  "jet-grey": #607480,
+  "lemon-grass": #999999, 
+  "lightning-yellow": #f6c31c,
+  "light-slate-blue": #646cff,
+  "macaroni-and-cheese": #efb52f,
+  "navy-blue": #000080,
+  "orange": orange,
+  "pastel-grey": #ccc,
+  "scampi": #5E59A8,
+  "seashell": #EEF1F3,
+  "shark": #232323,
+  "snow-drift": #f9f9f9,
+  "supermarket-blue": #00ade6,
+  "wheatfield": #f5ebd0,
+  "white": #fff,
+  "white-smoke": #F3F4F6,
+  "wine-red": #7f011f,
+);
+
+// for width and height
+$basic-length: 1rem !default;
+
+// spacing
+$base-padding: 1rem !default;
+$base-margin: 1rem !default;
+
+// borders
+$base-border-thickness: 1px !default;
+$base-border-radius: 1px !default;
+
+// box-shadow (four components — composed into $base-box-shadow below)
+$base-shadow-x: 0 !default;
+$base-shadow-y: 4px !default;
+$base-shadow-blur: 30px !default;
+$base-shadow-color: rgba(0, 0, 0, 0.1) !default;
+$base-box-shadow: $base-shadow-x $base-shadow-y $base-shadow-blur $base-shadow-color !default;
+
+// font sizes
+$base-font-size: 1rem !default;
+
+// font weight
+$base-font-weight: 300 !default;
+
+//font family
+$base-font-family-primary: system-ui, Avenir, Helvetica, Arial, sans-serif !default;
+$base-font-family-secondary: "Roboto", sans-serif !default;
+
+// line height
+$base-line-height: 1 !default;

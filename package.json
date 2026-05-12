@@ -1,0 +1,29 @@
+{
+  "name": "axlothecook-sass-library",
+  "version": "1.0.0",
+  "description": "My own SASS/SCSS library.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axlothecook/axlothecook-sass-library.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/axlothecook/axlothecook-sass-library/issues"
+  },
+  "homepage": "https://github.com/axlothecook/axlothecook-sass-library#readme",
+  "devDependencies": {
+    "gulp": "^5.0.1",
+    "gulp-sass": "^6.0.1",
+    "sass": "^1.98.0"
+  },
+  "dependencies": {
+    "gulp-purgecss": "^8.0.0"
+  }
+}

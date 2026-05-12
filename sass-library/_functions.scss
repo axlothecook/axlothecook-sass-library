@@ -1,0 +1,28 @@
+@use "sass:color";
+@use "sass:meta";
+
+@function _is-hued($color) {
+  @if meta.type-of($color) != color {
+    @return false;
+  }
+  @if $color == transparent {
+    @return false;
+  }
+  @return color.alpha($color) > 0;
+}
+
+@function light-complement($color, $amount) {
+  @if not _is-hued($color) {
+    @return $color;
+  }
+  $complement: color.complement($color);
+  @return color.adjust($complement, $lightness: $amount);
+}
+
+@function dark-complement($color, $amount) {
+  @if not _is-hued($color) {
+    @return $color;
+  }
+  $complement: color.complement($color);
+  @return color.adjust($complement, $lightness: -$amount);
+}

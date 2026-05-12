@@ -1,0 +1,42 @@
+@use '../variables';
+
+// NAVBAR
+// ============================================================================
+// Two layout helpers (a horizontal nav that stretches edge-to-edge, and a
+// vertical nav that fills its parent's height), plus a couple of global tweaks
+// that apply to every <nav>. None of these take parameters — they're plain
+// structural defaults; restyle on top with utility classes / scoped rules.
+
+// Horizontal navbar — stretches full width (Gaming Shop style).
+@mixin nav-width-100 {
+  width: 100%;
+  min-height: fit-content;
+  display: flex;
+  flex-direction: row;
+}
+
+// Vertical navbar — fixed/own width, but stretches from the top of its parent
+// down to the bottom.
+@mixin nav-height-100 {
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-width-100 {
+  @include nav-width-100;
+}
+
+.nav-height-100 {
+  @include nav-height-100;
+}
+
+// Global: no bullets on lists inside a nav, and a base shadow on every nav.
+nav ul {
+  list-style-type: none;
+}
+
+nav {
+  box-shadow: variables.$base-box-shadow;
+}

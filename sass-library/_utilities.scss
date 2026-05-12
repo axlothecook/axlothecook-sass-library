@@ -1,0 +1,557 @@
+@use 'sass:math';
+@use "sass:map";
+@use "./variables";
+
+// Shared value lists used in multiple $utilities entries below.
+$overflow-values: (
+    "visible": visible,
+    "hidden": hidden,
+    "scroll": scroll,
+    "auto": auto,
+    "clip": clip,
+);
+
+$utilities: (
+    "padding": (
+        "prefix": "p",
+        "values": (
+            "0": 0,
+            "0-2": variables.$base-padding * .2,
+            "0-3": variables.$base-padding * .3,
+            "0-4": variables.$base-padding * .4,
+            "0-5": math.div(variables.$base-padding, 2), 
+            "0-6": variables.$base-padding * .6,
+            "0-7": variables.$base-padding * .7,
+            "0-8": variables.$base-padding * .8,
+            "0-9": variables.$base-padding * .9,
+            "default": variables.$base-padding, 
+            "1-2": variables.$base-padding * 1.2, 
+            "1-25": variables.$base-padding * 1.25, 
+            "1-5": variables.$base-padding * 1.5, 
+            "2": variables.$base-padding * 2, 
+            "2-3": variables.$base-padding * 2.3, 
+            "2-5": variables.$base-padding * 2.5, 
+            "3": variables.$base-padding * 3, 
+            "5": variables.$base-padding * 5, 
+            "7": variables.$base-padding * 7, 
+            "8": variables.$base-padding * 8, 
+            "9": variables.$base-padding * 9, 
+            "10": variables.$base-padding * 10, 
+            "12": variables.$base-padding * 12, 
+            "14": variables.$base-padding * 14, 
+        )
+    ),
+    "padding-left": (
+        "prefix": "pl",
+        "values": (
+            "0": 0,
+            "0-2": variables.$base-padding * .2,
+            "0-3": variables.$base-padding * .3,
+            "0-4": variables.$base-padding * .4,
+            "0-5": math.div(variables.$base-padding, 2), 
+            "0-6": variables.$base-padding * .6,
+            "0-7": variables.$base-padding * .7,
+            "0-8": variables.$base-padding * .8,
+            "0-9": variables.$base-padding * .9,
+            "1": variables.$base-padding, 
+            "1-2": variables.$base-padding * 1.2, 
+            "1-25": variables.$base-padding * 1.25, 
+            "1-5": variables.$base-padding * 1.5, 
+            "2": variables.$base-padding * 2, 
+            "2-3": variables.$base-padding * 2.3, 
+            "2-5": variables.$base-padding * 2.5, 
+            "3": variables.$base-padding * 3, 
+            "5": variables.$base-padding * 5, 
+            "7": variables.$base-padding * 7, 
+            "8": variables.$base-padding * 8, 
+            "9": variables.$base-padding * 9, 
+            "10": variables.$base-padding * 10, 
+            "12": variables.$base-padding * 12, 
+            "14": variables.$base-padding * 14,
+        )
+    ),
+    "padding-right": (
+        "prefix": "pr",
+        "values": (
+            "0": 0,
+            "0-2": variables.$base-padding * .2,
+            "0-3": variables.$base-padding * .3,
+            "0-4": variables.$base-padding * .4,
+            "0-5": math.div(variables.$base-padding, 2), 
+            "0-6": variables.$base-padding * .6,
+            "0-7": variables.$base-padding * .7,
+            "0-8": variables.$base-padding * .8,
+            "0-9": variables.$base-padding * .9,
+            "1": variables.$base-padding, 
+            "1-2": variables.$base-padding * 1.2, 
+            "1-25": variables.$base-padding * 1.25, 
+            "1-5": variables.$base-padding * 1.5, 
+            "2": variables.$base-padding * 2, 
+            "2-3": variables.$base-padding * 2.3, 
+            "2-5": variables.$base-padding * 2.5, 
+            "3": variables.$base-padding * 3, 
+            "5": variables.$base-padding * 5, 
+            "7": variables.$base-padding * 7, 
+            "8": variables.$base-padding * 8, 
+            "9": variables.$base-padding * 9, 
+            "10": variables.$base-padding * 10, 
+            "12": variables.$base-padding * 12, 
+            "14": variables.$base-padding * 14,
+        )
+    ),
+    "padding-top": (
+        "prefix": "pt",
+        "values": (
+            "0": 0,
+            "0-2": variables.$base-padding * .2,
+            "0-3": variables.$base-padding * .3,
+            "0-4": variables.$base-padding * .4,
+            "0-5": math.div(variables.$base-padding, 2), 
+            "0-6": variables.$base-padding * .6,
+            "0-7": variables.$base-padding * .7,
+            "0-8": variables.$base-padding * .8,
+            "0-9": variables.$base-padding * .9,
+            "1": variables.$base-padding, 
+            "1-2": variables.$base-padding * 1.2, 
+            "1-25": variables.$base-padding * 1.25, 
+            "1-5": variables.$base-padding * 1.5, 
+            "2": variables.$base-padding * 2, 
+            "2-3": variables.$base-padding * 2.3, 
+            "2-5": variables.$base-padding * 2.5, 
+            "3": variables.$base-padding * 3, 
+            "5": variables.$base-padding * 5, 
+            "7": variables.$base-padding * 7, 
+            "8": variables.$base-padding * 8, 
+            "9": variables.$base-padding * 9, 
+            "10": variables.$base-padding * 10, 
+            "12": variables.$base-padding * 12, 
+            "14": variables.$base-padding * 14,
+        )
+    ),
+    "padding-bottom": (
+        "prefix": "pb",
+        "values": (
+            "0": 0,
+            "0-2": variables.$base-padding * .2,
+            "0-3": variables.$base-padding * .3,
+            "0-4": variables.$base-padding * .4,
+            "0-5": math.div(variables.$base-padding, 2), 
+            "0-6": variables.$base-padding * .6,
+            "0-7": variables.$base-padding * .7,
+            "0-8": variables.$base-padding * .8,
+            "0-9": variables.$base-padding * .9,
+            "1": variables.$base-padding, 
+            "1-2": variables.$base-padding * 1.2, 
+            "1-25": variables.$base-padding * 1.25, 
+            "1-5": variables.$base-padding * 1.5, 
+            "2": variables.$base-padding * 2, 
+            "2-3": variables.$base-padding * 2.3, 
+            "2-5": variables.$base-padding * 2.5, 
+            "3": variables.$base-padding * 3, 
+            "5": variables.$base-padding * 5, 
+            "7": variables.$base-padding * 7, 
+            "8": variables.$base-padding * 8, 
+            "9": variables.$base-padding * 9, 
+            "10": variables.$base-padding * 10, 
+            "12": variables.$base-padding * 12, 
+            "14": variables.$base-padding * 14,
+        )
+    ),
+    "margin": (
+        "prefix": "m", 
+        "values": (
+            "0": 0,
+            "0-5": variables.$base-margin * .5,
+            "0-7": variables.$base-margin * .7,
+            "1": variables.$base-margin,
+        )
+    ),
+    "margin-left": (
+        "prefix": "ml", 
+        "values": (
+            "0": 0,
+            "0-5": variables.$base-margin * .5,
+            "0-7": variables.$base-margin * .7,
+            "1": variables.$base-margin,
+            "auto": "auto"
+        )
+    ),
+    "margin-right": (
+        "prefix": "mr", 
+        "values": (
+            "0": 0,
+            "0-5": variables.$base-margin * .5,
+            "0-7": variables.$base-margin * .7,
+            "1": variables.$base-margin,
+            "auto": "auto"
+        )
+    ),
+    "margin-bottom": (
+        "prefix": "mb", 
+        "values": (
+            "0": 0,
+            "0-5": variables.$base-margin * .5,
+            "0-7": variables.$base-margin * .7,
+            "1": variables.$base-margin,
+            "auto": "auto"
+        )
+    ),
+    "margin-top": (
+        "prefix": "mt", 
+        "values": (
+            "0": 0,
+            "0-5": variables.$base-margin * .5,
+            "0-7": variables.$base-margin * .7,
+            "1": variables.$base-margin,
+            "auto": "auto"
+        )
+    ),
+    "opacity": (
+        "prefix": "o",
+        "values": (
+            "invisible": 0,
+            "10": 0.1,
+            "20": 0.2,
+            "30": 0.3,
+            "40": 0.4,
+            "50": 0.5,
+            "60": 0.6,
+            "70": 0.7,
+            "80": 0.8,
+            "90": 0.9,
+            "default": 1,
+        ),
+    ),
+    "border-radius": (
+        "prefix": "br",
+        "values": (
+            "default": variables.$base-border-radius,
+            "none": 0,
+            "xxs": variables.$base-border-radius * 5,
+            "xs": variables.$base-border-radius * 7,
+            "sm": variables.$base-border-radius * 10,
+            "md": variables.$base-border-radius * 12,
+            "lg": variables.$base-border-radius * 14,
+            "xl": variables.$base-border-radius * 20,
+            "xxl": variables.$base-border-radius * 30,
+            "full": 50%,
+        )
+    ),
+    "display": (
+        "prefix": "display",
+        "values": (
+            "n": none,
+            "b": block,
+            "f": flex,
+            "i": inline,
+            "i-b": inline-block
+        )
+    ),
+    "font-size": (
+        "prefix": "fz",
+        "values": (
+            "0-4": variables.$base-font-size * .4,
+            "0-5": variables.$base-font-size * .5,
+            "0-6": variables.$base-font-size * .6,
+            "0-7": variables.$base-font-size * .7,
+            "0-8": variables.$base-font-size * .8,
+            "0-9": variables.$base-font-size * .9,
+            "1": variables.$base-font-size,
+            "1-1": variables.$base-font-size * 1.1,
+            "1-2": variables.$base-font-size * 1.2,
+            "1-3": variables.$base-font-size * 1.3,
+            "1-5": variables.$base-font-size * 1.5,
+            "1-7": variables.$base-font-size * 1.7,
+            "1-8": variables.$base-font-size * 1.8,
+            "2": variables.$base-font-size * 2,
+            "2-2": variables.$base-font-size * 2.2,
+            "2-5": variables.$base-font-size * 2.5,
+            "2-7": variables.$base-font-size * 2.7,
+            "3": variables.$base-font-size * 3,
+            "4": variables.$base-font-size * 4,
+            "5": variables.$base-font-size * 5,
+        )
+    ),
+    "font-weight": (
+        "prefix": "fw",
+        "values": (
+            "100": math.div(variables.$base-font-weight, 3),
+            "200": variables.$base-font-weight * 0.669,
+            "300": variables.$base-font-weight,
+            "400": math.div(variables.$base-font-weight, .75),
+            "500": math.div(variables.$base-font-weight, .6),
+            "600": math.div(variables.$base-font-weight, .5),
+            "700": math.div(variables.$base-font-weight, 0.428),
+            "bold": bold,
+        )
+    ),
+    "scale": (
+        "prefix": "sc",
+        "values": (
+            "0": 0,
+            "0-1": 0.1,
+            "0-2": 0.2,
+            "0-3": 0.3,
+            "0-4": 0.4,
+            "0-5": 0.5,
+            "1": 1
+        )
+    ),
+    "text-align": (
+        "prefix": "t",
+        "values": (
+            "default": left,
+            "center": center,
+            "right": right,
+            "justify": justify,
+        )
+    ),
+    "backdrop-filter": (
+        "prefix": "backdrop-blur",
+        "values": (
+            "0-5": blur(0.5px),
+            "1":   blur(1px),
+            "2":   blur(2px),
+            "3":   blur(3px),
+            "4":   blur(4px),
+            "5":   blur(5px),
+            "6":   blur(6px),
+            "7":   blur(7px),
+            "8":   blur(8px),
+            "9":   blur(9px),
+            "10":  blur(10px),
+            "12":  blur(12px),
+            "15":  blur(15px),
+            "20":  blur(20px),
+        )
+    ),
+    "overflow": (
+        "prefix": "overflow",
+        "values": $overflow-values,
+    ),
+    "overflow-x": (
+        "prefix": "overflow-x",
+        "values": $overflow-values,
+    ),
+    "overflow-y": (
+        "prefix": "overflow-y",
+        "values": $overflow-values,
+    ),
+    "position": (
+        "prefix": "position",
+        "values": (
+            "static": static,
+            "relative": relative,
+            "absolute": absolute,
+            "fixed": fixed,
+            "sticky": sticky,
+            "inherit": inherit,
+            "initial": initial,
+            "unset": unset,
+        )
+    ),
+    "background-position": (
+        "prefix": "bg-pos",
+        "values": (
+            "center": center,
+            "top": top,
+            "bottom": bottom,
+            "left": left,
+            "right": right,
+            "center-center": center center,
+        )
+    ),
+    "background-size": (
+        "prefix": "bg-size",
+        "values": (
+            "auto": auto,
+            "cover": cover,
+            "contain": contain,
+            "100": 100%,
+        )
+    ),
+    "background-repeat": (
+        "prefix": "bg-repeat",
+        "values": (
+            "default": repeat,
+            "no": no-repeat,
+            "x": repeat-x,
+            "y": repeat-y,
+            "space": space,
+            "round": round,
+        )
+    ),
+    "object-fit": (
+        "prefix": "object",
+        "values": (
+            "contain": contain,
+            "cover": cover,
+            "fill": fill,
+            "none": none,
+            "scale-down": scale-down,
+        )
+    ),
+    "object-position": (
+        "prefix": "object-pos",
+        "values": (
+            "center": center,
+            "top": top,
+            "bottom": bottom,
+            "left": left,
+            "right": right,
+            "top-left": top left,
+            "top-right": top right,
+            "bottom-left": bottom left,
+            "bottom-right": bottom right,
+        )
+    ),
+    "cursor": (
+        "prefix": "cursor",
+        "values": (
+            "auto": auto,
+            "default": default,
+            "none": none,
+            "context-menu": context-menu,
+            "help": help,
+            "pointer": pointer,
+            "progress": progress,
+            "wait": wait,
+            "cell": cell,
+            "crosshair": crosshair,
+            "text": text,
+            "vertical-text": vertical-text,
+            "alias": alias,
+            "copy": copy,
+            "move": move,
+            "no-drop": no-drop,
+            "not-allowed": not-allowed,
+            "grab": grab,
+            "grabbing": grabbing,
+            "all-scroll": all-scroll,
+            "col-resize": col-resize,
+            "row-resize": row-resize,
+            "n-resize": n-resize,
+            "e-resize": e-resize,
+            "s-resize": s-resize,
+            "w-resize": w-resize,
+            "ne-resize": ne-resize,
+            "nw-resize": nw-resize,
+            "se-resize": se-resize,
+            "sw-resize": sw-resize,
+            "ew-resize": ew-resize,
+            "ns-resize": ns-resize,
+            "nesw-resize": nesw-resize,
+            "nwse-resize": nwse-resize,
+            "zoom-in": zoom-in,
+            "zoom-out": zoom-out,
+        )
+    ),
+);
+
+$visibility: visible, hidden;
+
+@each $val in $visibility {
+  .visibility-#{$val} {
+    visibility: $val;
+  }
+}
+
+// generate utility classes
+@each $property, $map in $utilities {
+  $prefix: map.get($map, "prefix");
+  $values: map.get($map, "values");
+
+  @each $k, $v in $values {
+    @if($k == "default") {
+      .#{$prefix} {
+        #{$property}: $v;
+      }
+    } @else {
+      .#{$prefix}-#{$k}{
+        #{$property}: $v;
+      }
+    }
+  }
+}
+
+@for $val from 1 through 100 {
+    $basic: $val * variables.$basic-length;
+
+    @if($val == 1) {
+      .w {
+        width: $val;
+      }
+      .h{
+        height: $val;
+      }
+    } @else {
+      .w-#{$val}{
+        width: $basic;
+      }
+      .h-#{$val}{
+        height: $basic;
+      }
+    }
+}
+
+// Named width/height extras (keywords, not numeric).
+.w-stretch { width: stretch; }
+.w-full    { width: 100%; }
+.w-fit     { width: fit-content; }
+
+.h-stretch { height: stretch; }
+.h-full    { height: 100%; }
+.h-fit     { height: fit-content; }
+.h-screen  { height: 100vh; }
+
+// CSS Grid display + column utilities.
+// .grid-cols-N gives repeat(N, var(--grid-fr, 1fr)); defaults to 1fr per col.
+// Stack with .grid-fr-M to override the fr unit (e.g. .grid-cols-3 .grid-fr-1-4
+// → grid-template-columns: repeat(3, 1.4fr)).
+// Asymmetric column tracks (1fr 2.2fr etc.) — write inline on the element.
+.grid        { display: grid; }
+.grid-inline { display: inline-grid; }
+
+$grid-fr-values: (
+    "1":   1,
+    "1-2": 1.2,
+    "1-4": 1.4,
+    "1-5": 1.5,
+    "2":   2,
+    "2-2": 2.2,
+    "2-5": 2.5,
+    "3":   3,
+    "4":   4,
+);
+
+@for $n from 1 through 8 {
+    .grid-cols-#{$n} {
+        display: grid;
+        grid-template-columns: repeat($n, var(--grid-fr, 1fr));
+    }
+}
+
+@each $fr-key, $fr-val in $grid-fr-values {
+    .grid-fr-#{$fr-key} {
+        --grid-fr: #{$fr-val}fr;
+    }
+}
+
+// Box-shadow with injectable components. Defaults to the library's base shadow.
+// $color counts as one value (rgba/hsla/hex). Spread-radius is omitted by design.
+@mixin shadow(
+    $offset-x: variables.$base-shadow-x,
+    $offset-y: variables.$base-shadow-y,
+    $blur: variables.$base-shadow-blur,
+    $color: variables.$base-shadow-color
+) {
+    box-shadow: $offset-x $offset-y $blur $color;
+}
+
+.shadow {
+    @include shadow;
+}
+
+.shadow-none {
+    box-shadow: none;
+}
