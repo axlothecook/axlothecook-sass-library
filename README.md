@@ -39,3 +39,11 @@ $base-font-size: 5px;
 
 ## Inspo advice
 visit [this website](https://getcssscan.com/css-box-shadow-examples) for more box-shadow ideas
+
+## Demo pictures 
+Available in demo.html that comes with repo, you can spin it on your own after running gulp and opening the file in the browser.
+![image](https://github.com/user-attachments/assets/1cb147df-f6a8-4a71-9290-fa5d41816580)
+![image](https://github.com/user-attachments/assets/059d9a59-2315-40b9-9731-7f8209124066)
+![image](https://github.com/user-attachments/assets/b04ad6a6-b796-45d0-965d-b85c3bfded27)
+![image](https://github.com/user-attachments/assets/26ed1b65-987a-4035-a623-5504ff612cbc)
+![image](https://github.com/user-attachments/assets/15dee43b-8867-4d32-9e7e-7b190889fb6e)
