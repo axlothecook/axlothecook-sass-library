@@ -1,6 +1,16 @@
 # axlothecook-sass-library
 My own SASS/SCSS library. Bc I don't like Tailwind and Bootstrap, and CSS3 is limiting.
 
+## What does it do?
+Basically a mix of Tailwind and Bootstrap. Offers:
+<ul>
+  <li>component classes to build general components</li>
+  <li>component classes can be modified or ignored all together</li>
+  <li>utility attribute classes (padding, display) used to modify current or build components anew</li>
+  <li>a color palette</li>
+  <li>users can add their own colors</li>
+</ul>
+
 
 ## How to customize values?
 1) Create a separate folder for css, call it whatever you'd like, I usually call it 'custom-styles'. <br>
