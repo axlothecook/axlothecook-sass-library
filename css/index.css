@@ -149292,12 +149292,6 @@ a {
   color: inherit;
 }
 
-a:hover,
-.li-hover li:hover,
-li.li-hover:hover {
-  color: rgb(147, 141, 124.8);
-}
-
 @keyframes appear-from-scale-1 {
   0% {
     opacity: 0;

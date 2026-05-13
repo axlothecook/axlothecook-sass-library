@@ -1,5 +1,4 @@
 @use "sass:map";
-@use "sass:color";
 @use "./variables";
 @use "./utilities";
 
@@ -55,10 +54,6 @@ a {
   color: inherit;
 }
 
-// Hover-color: opt-in. <a> always; <li> only when `.li-hover` is on the parent
-// container (e.g. <ul class="li-hover">) or on the <li> itself.
-a:hover,
-.li-hover li:hover,
-li.li-hover:hover {
-  color: color.mix(#000, variables.$text, 40%);   // = $text-dark-4
-}
+// Intentionally no global hover-color rule — by design, hovering an <a> or <li>
+// does NOT change colour (text stays inherited from :root). Apply hover styling
+// per-component when needed.
