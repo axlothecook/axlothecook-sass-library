@@ -237,6 +237,24 @@ $utilities: (
             "full": 50%,
         )
     ),
+    "border-width": (
+        "prefix": "border-width",
+        "values": (
+            "0": 0,
+            "1": 1px,
+            "2": 2px,
+            "3": 3px,
+        )
+    ),
+    "border-style": (
+        "prefix": "border-style",
+        "values": (
+            "none": none,
+            "solid": solid,
+            "dashed": dashed,
+            "dotted": dotted,
+        )
+    ),
     "display": (
         "prefix": "display",
         "values": (

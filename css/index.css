@@ -666,6 +666,38 @@
   border-radius: 50%;
 }
 
+.border-width-0 {
+  border-width: 0;
+}
+
+.border-width-1 {
+  border-width: 1px;
+}
+
+.border-width-2 {
+  border-width: 2px;
+}
+
+.border-width-3 {
+  border-width: 3px;
+}
+
+.border-style-none {
+  border-style: none;
+}
+
+.border-style-solid {
+  border-style: solid;
+}
+
+.border-style-dashed {
+  border-style: dashed;
+}
+
+.border-style-dotted {
+  border-style: dotted;
+}
+
 .display-n {
   display: none;
 }
