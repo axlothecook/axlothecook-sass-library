@@ -70,6 +70,10 @@ $positions: (
         background-color: $val;
     }
 
+    // -------- svg fill + stroke --------
+    .fill-#{$key}   { fill: $val; }
+    .stroke-#{$key} { stroke: $val; }
+
     // -------- border: all-sides + 4 sides, each with plain + :hover --------
     .border-#{$key} { border-color: $val; }
     .border-top-#{$key} { border-top-color: $val; }
