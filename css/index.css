@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .visibility-visible {
   visibility: visible;
 }
@@ -156162,9 +156163,14 @@ h1, h2, h3, h4, h5, p {
   font-weight: 400;
 }
 
-input, button, textarea, input:focus, button:hover, button:focus, textarea:hover, textarea:focus {
+input, button, textarea {
   outline: none;
   border: none;
+}
+
+input:focus, button:hover, button:focus, textarea:hover, textarea:focus {
+  outline: none;
+  /* border: none removed — let the consumer's border persist through hover/focus */
 }
 
 button, label {
