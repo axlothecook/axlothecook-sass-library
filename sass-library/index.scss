@@ -32,3 +32,28 @@
 @use 'components/select';
 @use 'components/spinner';
 @use 'components/textarea';
+
+// Re-export the partials whose Sass API (variables, mixins, functions) consumers
+// are expected to use directly. After `@use 'axlothecook-sass-library/sass-library' as *;`
+// a consumer can write `$primary`, `breakpoints.sm`, `@include default-footer(...)`,
+// etc. — without a separate `@use` for each partial.
+@forward 'variables';
+@forward 'functions';
+@forward 'breakpoints';
+@forward 'grid';
+@forward 'components/button';
+@forward 'components/card';
+@forward 'components/carousel';
+@forward 'components/dialog';
+@forward 'components/errorPage';
+@forward 'components/errorPopup';
+@forward 'components/footer';
+@forward 'components/input';
+@forward 'components/menu';
+@forward 'components/navbar';
+@forward 'components/notification';
+@forward 'components/radioInput';
+@forward 'components/searchBar';
+@forward 'components/select';
+@forward 'components/spinner';
+@forward 'components/textarea';
