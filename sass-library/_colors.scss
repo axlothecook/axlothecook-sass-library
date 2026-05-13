@@ -65,10 +65,9 @@ $positions: (
         }
     }
 
-    // -------- bg (unchanged) --------
-    .bg-#{$key} {
-        background-color: $val;
-    }
+    // -------- bg (plain + :hover) --------
+    .bg-#{$key}       { background-color: $val; }
+    .bg-hover-#{$key} { &:hover { background-color: $val; } }
 
     // -------- svg fill + stroke --------
     .fill-#{$key}   { fill: $val; }
@@ -101,7 +100,8 @@ $positions: (
                 }
             }
 
-            .bg-#{$key}-light-#{$i} { background-color: $shade; }
+            .bg-#{$key}-light-#{$i}       { background-color: $shade; }
+            .bg-hover-#{$key}-light-#{$i} { &:hover { background-color: $shade; } }
 
             .border-#{$key}-light-#{$i} { border-color: $shade; }
             .border-top-#{$key}-light-#{$i} { border-top-color: $shade; }
@@ -127,7 +127,8 @@ $positions: (
                 }
             }
 
-            .bg-#{$key}-dark-#{$i} { background-color: $shade; }
+            .bg-#{$key}-dark-#{$i}       { background-color: $shade; }
+            .bg-hover-#{$key}-dark-#{$i} { &:hover { background-color: $shade; } }
 
             .border-#{$key}-dark-#{$i} { border-color: $shade; }
             .border-top-#{$key}-dark-#{$i} { border-top-color: $shade; }
@@ -144,10 +145,10 @@ $positions: (
     }
 }
 
-// SVG fill keyword utilities.
-.fill-transparent { fill: transparent; }
-.fill-current     { fill: currentColor; }
-.fill-none        { fill: none; }
+// SVG fill keyword utilities (CSS keywords NOT in $colors).
+// (.fill-transparent is auto-generated from $colors → no need to repeat it here.)
+.fill-current { fill: currentColor; }
+.fill-none    { fill: none; }
 
 .transparent {
     background-color: transparent;
