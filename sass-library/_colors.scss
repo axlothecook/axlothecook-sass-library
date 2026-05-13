@@ -140,6 +140,11 @@ $positions: (
     }
 }
 
+// SVG fill keyword utilities.
+.fill-transparent { fill: transparent; }
+.fill-current     { fill: currentColor; }
+.fill-none        { fill: none; }
+
 .transparent {
     background-color: transparent;
     backdrop-filter: blur(20px);
