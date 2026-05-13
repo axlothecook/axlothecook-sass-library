@@ -474,23 +474,40 @@ $visibility: visible, hidden;
   }
 }
 
+// height and width
+// Integer widths/heights: .w-1 .. .w-100, .h-1 .. .h-100 (1rem .. 100rem).
 @for $val from 1 through 100 {
     $basic: $val * variables.$basic-length;
+    .w-#{$val} { width: $basic; }
+    .h-#{$val} { height: $basic; }
+}
 
-    @if($val == 1) {
-      .w {
-        width: $val;
-      }
-      .h{
-        height: $val;
-      }
-    } @else {
-      .w-#{$val}{
-        width: $basic;
-      }
-      .h-#{$val}{
-        height: $basic;
-      }
+// Sub-rem widths/heights: .w-0-1 .. .w-0-9, .h-0-1 .. .h-0-9 (.1rem .. .9rem).
+$w-h-sub-rem: (
+  "0-1": .1rem,
+  "0-2": .2rem,
+  "0-3": .3rem,
+  "0-4": .4rem,
+  "0-5": .5rem,
+  "0-6": .6rem,
+  "0-7": .7rem,
+  "0-8": .8rem,
+  "0-9": .9rem,
+);
+@each $key, $val in $w-h-sub-rem {
+    .w-#{$key} { width: $val; }
+    .h-#{$key} { height: $val; }
+}
+
+// Fractional widths/heights for integers 1..9, at steps .1, .2, .3, .5, .7, .8
+// → .w-1-1, .w-1-2, .w-1-3, .w-1-5, .w-1-7, .w-1-8, .w-2-1, ..., .w-9-8
+// (and same for .h-*). 54 each, 108 total.
+$w-h-fractional-steps: 1, 2, 3, 5, 7, 8;
+@for $int from 1 through 9 {
+    @each $step in $w-h-fractional-steps {
+        $val: ($int + math.div($step, 10)) * variables.$basic-length;
+        .w-#{$int}-#{$step} { width: $val; }
+        .h-#{$int}-#{$step} { height: $val; }
     }
 }
 
