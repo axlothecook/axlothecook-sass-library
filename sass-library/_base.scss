@@ -1,4 +1,5 @@
 @use "sass:map";
+@use "sass:color";
 @use "./variables";
 @use "./utilities";
 
@@ -51,8 +52,13 @@ button, label {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
-a:hover, li:hover {
-  color: variables.$primary;
+// Hover-color: opt-in. <a> always; <li> only when `.li-hover` is on the parent
+// container (e.g. <ul class="li-hover">) or on the <li> itself.
+a:hover,
+.li-hover li:hover,
+li.li-hover:hover {
+  color: color.mix(#000, variables.$text, 40%);   // = $text-dark-4
 }
