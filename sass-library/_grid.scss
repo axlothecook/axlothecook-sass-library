@@ -61,44 +61,33 @@ $content-layout-values: start, end, flex-start, flex-end, center, space-between,
   flex-direction: column;
 }
 
-// base layout classes
-.global-wrapper {
-  position: relative;
-  min-height: fit-content;
-  height: 100%; 
-  // background-color: variables.$primary; 
+.reverse-column-wrap {
+  display: flex;
+  flex-flow: column-reverse;
 }
 
-.container-block {
+.reverse-column-nowrap {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+// base layout classes
+.global-wrapper-parent {
+  min-height: fit-content;
+  height: 100vh; 
+}
+
+.global-wrapper-child {
+  position: relative;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  @extend .p-0, .pl-1-5, .pr-1-5;
-  // padding: 0; // 1.5rem
-}
-
-.container-flex-col {
-  width: 100%;
-  @extend .column-nowrap;
-  // gap: map.get($flex-gaps, "2"); // 2rem
-}
-
-.container-flex-row {
-  width: 100%;
-  @extend .row-wrap;
-  // gap: map.get($flex-gaps, "2"); // 2rem
+  padding: 0;
 }
 
 // flex gaps
 @each $key, $val in $flex-gaps {
-  // .flex-gap-#{$key} > * {
-  //   padding: $val;
-  // }
-  .flex-gap-#{$key} {
-    // margin-left: -$val;
-    // margin-right: -$val;
-    gap: $val;
-  }
+  .flex-gap-#{$key} { gap: $val; }
 }
 
 // grid gaps
