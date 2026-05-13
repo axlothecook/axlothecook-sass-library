@@ -149289,10 +149289,13 @@ button, label {
 
 a {
   text-decoration: none;
+  color: inherit;
 }
 
-a:hover, li:hover {
-  color: #7f011f;
+a:hover,
+.li-hover li:hover,
+li.li-hover:hover {
+  color: rgb(147, 141, 124.8);
 }
 
 @keyframes appear-from-scale-1 {
