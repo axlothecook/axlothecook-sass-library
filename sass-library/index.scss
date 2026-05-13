@@ -39,8 +39,10 @@
 // etc. — without a separate `@use` for each partial.
 @forward 'variables';
 @forward 'functions';
+@forward 'utilities';
 @forward 'breakpoints';
 @forward 'grid';
+@forward 'hover';
 @forward 'components/button';
 @forward 'components/card';
 @forward 'components/carousel';
