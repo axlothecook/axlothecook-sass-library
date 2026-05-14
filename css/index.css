@@ -156480,7 +156480,7 @@ input, button, textarea {
   border: none;
   background-color: transparent;
   color: inherit;
-  font: inherit;
+  font-family: inherit;
 }
 
 input:focus, button:hover, button:focus, textarea:hover, textarea:focus {
@@ -160588,9 +160588,6 @@ nav {
 }
 .default-radio-input-btn > svg, .default-radio-input-btn > img, .default-radio-input-btn > div {
   flex-shrink: 0;
-}
-.default-radio-input-btn h3 + h3 {
-  margin-left: auto;
 }
 .default-radio-input-btn:hover, .default-radio-input-btn.selected {
   background-color: #5a0317;
