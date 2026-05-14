@@ -43,6 +43,11 @@ h1, h2, h3, h4, h5, p {
 input, button, textarea {
   outline: none;
   border: none;
+  background-color: transparent;
+  // <input>/<button>/<textarea> don't inherit `color` from the document by default
+  // (they use the browser's own user-agent color). Force inherit so they pick up
+  // the cascade like every other element. Also kill the user-agent grey button bg.
+  color: inherit;
 }
 input:focus, button:hover, button:focus, textarea:hover, textarea:focus {
   outline: none;
