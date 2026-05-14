@@ -44,12 +44,15 @@ input, button, textarea {
   outline: none;
   border: none;
   background-color: transparent;
-  // <input>/<button>/<textarea> don't inherit `color` or `font` from the document
-  // by default (they use the browser's own user-agent values). Force inherit so
-  // they pick up the cascade like every other element. Also kill the user-agent
-  // grey button bg.
+  // <input>/<button>/<textarea> don't inherit `color` or font family from the
+  // document by default (they use the browser's own user-agent values). Force
+  // both to inherit so they pick up the cascade like every other element. Also
+  // kill the user-agent grey button bg.
+  // NOTE: only `font-family` is inherited — NOT the `font` shorthand. The
+  // shorthand would also reset font-size/weight/line-height to inherit, which
+  // clobbers any class- or inline-set sizing on the element.
   color: inherit;
-  font: inherit;
+  font-family: inherit;
 }
 input:focus, button:hover, button:focus, textarea:hover, textarea:focus {
   outline: none;
