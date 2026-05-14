@@ -156436,6 +156436,7 @@ input, button, textarea {
   border: none;
   background-color: transparent;
   color: inherit;
+  font: inherit;
 }
 
 input:focus, button:hover, button:focus, textarea:hover, textarea:focus {
