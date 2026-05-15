@@ -160742,6 +160742,7 @@ nav {
   color: #f5ebd0;
   padding: 0.3rem 0.5rem;
   transition: 0.2s;
+  cursor: pointer;
 }
 .default-select option > svg, .default-select option > img {
   flex-shrink: 0;
