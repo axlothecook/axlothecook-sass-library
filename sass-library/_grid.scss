@@ -75,6 +75,11 @@ $content-layout-values: start, end, flex-start, flex-end, center, space-between,
   flex-direction: column-reverse;
 }
 
+// flex-grow — for a flex child to fill (1) or hold (0) the free space on the
+// main axis of its flex parent.
+.flex-grow-0 { flex-grow: 0; }
+.flex-grow-1 { flex-grow: 1; }
+
 // base layout classes
 .global-wrapper-parent {
   min-height: fit-content;

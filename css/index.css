@@ -155687,6 +155687,14 @@
   flex-direction: column-reverse;
 }
 
+.flex-grow-0 {
+  flex-grow: 0;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
 .global-wrapper-parent {
   min-height: fit-content;
   height: 100vh;
