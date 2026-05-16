@@ -9,17 +9,17 @@
 //   - keep the bar shown when the wrapper has the `.current` modifier (put it
 //     on whichever link is the open page; the underline stays while you're on
 //     that page),
-//   - recolour the text on `:hover` AND on `.current` — these two states get
+//   - recolour the text on `:hover` AND on `.current` - these two states get
 //     their own colour knobs (`$hover-text-color` / `$current-text-color`).
 //
-// The underline bar itself is ONE colour (`$bar-color`) — it does not change
+// The underline bar itself is ONE colour (`$bar-color`) - it does not change
 // between hover and current; only its presence / shape animates.
 //
 // They differ only in how the bar appears:
-//   1. `.drop-underline-effect` — a full-width bar that fades in and slides
-//      down a few px from behind the text (Food-For-Dollar / Gaming Shop style).
+//   1. `.drop-underline-effect` - a full-width bar that fades in and slides
+//      down a few px from behind the text (store / gaming shop style).
 //      Defaults: blue text on hover, $secondary text when current.
-//   2. `.grow-underline-effect` — a bar that grows from zero width to full;
+//   2. `.grow-underline-effect` - a bar that grows from zero width to full;
 //      WHERE it grows from is injectable via `$origin`: `center` (spreads both
 //      ways), `left` (left→right), or `right` (right→left).
 //      Defaults: blue text on hover, gold text when current (archery website).
@@ -30,7 +30,7 @@
 //   <a class="grow-underline-effect current"><span>About</span></a>
 
 
-// 1. DROP-IN UNDERLINE — Food-For-Dollar / Gaming Shop style
+// 1. DROP-IN UNDERLINE - store / gaming shop style
 // ----------------------------------------------------------------------------
 @mixin drop-underline-effect(
   $bar-color: map.get(variables.$colors, "supermarket-blue"),
@@ -87,9 +87,9 @@
 }
 
 
-// 2. GROW-OUT UNDERLINE — archery website style (and configurable origin)
+// 2. GROW-OUT UNDERLINE - archery website style (and configurable origin)
 // ----------------------------------------------------------------------------
-// $origin: center | left | right — where the bar grows from.
+// $origin: center | left | right - where the bar grows from.
 @mixin grow-underline-effect(
   $origin: center,
   $bar-color: map.get(variables.$colors, "supermarket-blue"),

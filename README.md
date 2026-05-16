@@ -25,7 +25,7 @@ $base-font-size: 5px;
 ```
 <br>
 4) Add '@import sass-library' after all of the code you've added. <br>
-5) Make sure to link to your new index.scss file in your custom folder (ie 'custom-styles/index.css') instead of the 'sass-library/index.scss' to use your custom styling. <br>
+5) Make sure to link to your new index.scss file in your custom folder (ie 'styles/index.css') instead of the 'sass-library/index.scss' to use your custom styling. <br>
 <br>
 
 ## Conventions (for me, when editing the library)

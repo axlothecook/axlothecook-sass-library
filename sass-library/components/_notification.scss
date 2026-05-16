@@ -5,7 +5,7 @@
 // ============================================================================
 // A small transient notice that drops into a corner of the page and fades
 // itself out (via the shared `disappear` keyframe). Modelled on the
-// Mini-Messaging-Board warning popup — the defaults reproduce it exactly —
+// Mini-Messaging-Board warning popup - the defaults reproduce it exactly -
 // but kept generic: the library only styles the wrapper + the message text.
 // To show an icon, drop your own inline <svg> (or <img>) as the first child;
 // it sits to the left of the message and is sized to $icon-size.
@@ -22,7 +22,7 @@
 //
 // JS: insert the node, then `setTimeout(() => node.remove(), <duration>ms)`
 // (the animation runs once; without `forwards` it's left in its 0% state
-// — visible — so remove the node when it ends).
+// - visible - so remove the node when it ends).
 @mixin default-notification-popup(
   $bg-color: map.get(variables.$colors, "white"),
   $text-color: map.get(variables.$colors, "shark"),

@@ -1,3 +1,5 @@
+// written partially with Claude Code
+
 // variables & functions
 @use 'variables';
 @use 'functions';
@@ -36,7 +38,7 @@
 // Re-export the partials whose Sass API (variables, mixins, functions) consumers
 // are expected to use directly. After `@use 'axlothecook-sass-library/sass-library' as *;`
 // a consumer can write `$primary`, `breakpoints.sm`, `@include default-footer(...)`,
-// etc. — without a separate `@use` for each partial.
+// etc. - without a separate `@use` for each partial.
 @forward 'variables';
 @forward 'functions';
 @forward 'utilities';

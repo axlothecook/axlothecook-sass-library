@@ -1,7 +1,7 @@
 @use "./variables";
 @use "sass:color";
 
-// 5 action states. "none" means no pseudo-state — emit the bare selector.
+// 5 action states. "none" means no pseudo-state - emit the bare selector.
 $actions: (
     "none": null,
     "hover": ":hover",
@@ -10,7 +10,7 @@ $actions: (
     "focus": ":focus",
 );
 
-// 5 position scopes. "none" means no positional pseudo — emit just the action.
+// 5 position scopes. "none" means no positional pseudo - emit just the action.
 $positions: (
     "none": null,
     "first-child": ":first-child",
@@ -32,9 +32,9 @@ $positions: (
 }
 
 // Concatenate the pseudo-selectors for a (position, action) pair.
-// position=none, action=none      → ""              (bare element)
+// position=none, action=none → "" (bare element)
 // position=first-child, action=none → ":first-child"
-// position=none, action=hover     → ":hover"
+// position=none, action=hover → ":hover"
 // position=first-child, action=hover → ":first-child:hover"
 @function _pseudo($pos-pseudo, $action-pseudo) {
     $out: "";

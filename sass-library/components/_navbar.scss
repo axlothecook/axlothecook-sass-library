@@ -4,10 +4,10 @@
 // ============================================================================
 // Two layout helpers (a horizontal nav that stretches edge-to-edge, and a
 // vertical nav that fills its parent's height), plus a couple of global tweaks
-// that apply to every <nav>. None of these take parameters — they're plain
+// that apply to every <nav>. None of these take parameters - they're plain
 // structural defaults; restyle on top with utility classes / scoped rules.
 
-// Horizontal navbar — stretches full width (Gaming Shop style).
+// Horizontal navbar - stretches full width
 @mixin nav-width-100 {
   width: 100%;
   min-height: fit-content;
@@ -15,7 +15,7 @@
   flex-direction: row;
 }
 
-// Vertical navbar — fixed/own width, but stretches from the top of its parent
+// Vertical navbar - fixed/own width, but stretches from the top of its parent
 // down to the bottom.
 @mixin nav-height-100 {
   height: 100%;

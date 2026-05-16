@@ -31,7 +31,7 @@
   pointer-events: all;
 }
 
-// Item-scoped overlay — sits inside a position:relative parent (e.g. an image
+// Item-scoped overlay - sits inside a position:relative parent (e.g. an image
 // wrapper) and covers just that element while its content loads.
 // HTML: <div class="img-spinner-overlay"><div class="spinner"></div></div>
 @mixin img-spinner-overlay($backdrop: rgba(0, 0, 0, 0.2), $z-index: 1) {

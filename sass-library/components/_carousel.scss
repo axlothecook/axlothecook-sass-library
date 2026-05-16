@@ -5,9 +5,9 @@
 // ============================================================================
 // CSS structure + visuals only. The library provides the rails (sliding track,
 // absolutely-positioned arrow buttons, ticking dots). Slide content is whatever
-// you put inside .carousel-slide — typically a .default-big-info-card.
+// you put inside .carousel-slide - typically a .default-big-info-card.
 //
-// JS responsibilities (NOT in the library — implement in the consuming component):
+// JS responsibilities (NOT in the library - implement in the consuming component):
 //   1. Track translation: for active slide N, set
 //        transform: translateX(-N * 100%)
 //      on .carousel-track. The CSS transition below animates it; or drive it
@@ -18,11 +18,11 @@
 //      The arrow buttons are absolutely positioned (not inside the track), so
 //      dragging the track never grabs them. On release, snap to the nearest slide.
 //      While dragging, add the .dragging class to .carousel-track to kill the
-//      transition. Food-For-Dollar uses framer-motion's `drag` prop; in SvelteKit
+//      transition. An author's project uses framer-motion's `drag` prop; in SvelteKit
 //      use the `motion` npm package the same way, or hand-roll (~30 LOC).
 //   4. Arrow clicks: prev / next index on .carousel-arrow-left / .carousel-arrow-right.
 //   5. Dot clicks: jump-to-index on each .carousel-dot. On slide change, restart
-//      the progress-bar animation — the reliable way is to clone the
+//      the progress-bar animation - the reliable way is to clone the
 //      .carousel-dot-progress node so the CSS animation re-runs from 0%.
 //
 // HTML:
@@ -83,7 +83,7 @@
     overflow: hidden;
   }
 
-  // Arrow buttons — absolutely positioned over the slides. Because they're not
+  // Arrow buttons - absolutely positioned over the slides. Because they're not
   // inside .carousel-track, dragging the track never grabs them. No z-index
   // needed: absolutely-positioned elements stack above their in-flow siblings.
   .carousel-arrow-left,

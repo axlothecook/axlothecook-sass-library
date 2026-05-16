@@ -26,8 +26,8 @@
   }
 }
 
-// Bare button styling for use inside modal/dialog action rows. No colors baked
-// in — apply a .bg-* / .text-* / .btn-* class for color. Used by _dialog.scss.
+// Bare button styling for use inside modal/dialog action rows. No colors baked in
+// apply a .bg-* / .text-* / .btn-* class for color. Used by _dialog.scss.
 @mixin dialog-btn($padding: .6rem 1.4rem, $radius: 7px) {
   border: none;
   cursor: pointer;

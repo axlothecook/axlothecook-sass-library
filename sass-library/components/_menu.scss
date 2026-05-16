@@ -8,29 +8,29 @@
 //     `right` → `right: 0`); slide-in animations enter from that edge,
 //   - inner layout is `display: flex; flex-direction: column` (HARDCODED),
 //     with an injectable `$gap` (default .5rem) and `$padding` (default 1.5rem),
-//   - `overflow-y: auto` — if the options overflow, the panel scrolls,
+//   - `overflow-y: auto` - if the options overflow, the panel scrolls,
 //   - dark background by default (`$secondary`), injectable.
 //
 // The three flavours:
-//   1. `.expand-on-hover-menu` — always visible as a narrow icon strip
+//   1. `.expand-on-hover-menu` - always visible as a narrow icon strip
 //      (`$collapsed-width`, default 5rem); on `:hover` it animates its WIDTH
 //      out to `$expanded-width` (default 33.333vw) and reveals option labels
 //      next to the icons. Admin-dashboard sidebar. Pure CSS, no JS.
-//   2. `.fullscreen-menu` — hidden off-screen; when given `.open` it slides in
+//   2. `.fullscreen-menu` - hidden off-screen; when given `.open` it slides in
 //      to cover the WHOLE viewport (`width: 100vw`). For replacing a cramped
 //      top navbar on small screens behind a hamburger icon. Needs JS to toggle
 //      `.open` (a `.menu-toggle` helper is provided for the icon button).
-//   3. `.half-screen-menu` — same as 2 but slides in to cover exactly HALF the
+//   3. `.half-screen-menu` - same as 2 but slides in to cover exactly HALF the
 //      viewport (`$panel-width`, default 50vw), with a `.menu-backdrop` sibling
 //      overlay shading the visible half (modal-style). Toggle `.open` on BOTH
 //      the panel and the backdrop. For big screens.
 //
 // All slide motion is CSS `transition` on `transform` (so toggling `.open`
-// animates both ways) — no @keyframes.
+// animates both ways) - no @keyframes.
 
 
-// Shared base — the bits all three panels have in common.
-// $side: `left` | `right` — which screen edge the panel is anchored to (and,
+// Shared base - the bits all three panels have in common.
+// $side: `left` | `right` - which screen edge the panel is anchored to (and,
 // for the sliding variants, the edge it enters from).
 @mixin menu-panel-base(
   $side: left,
@@ -57,7 +57,7 @@
 }
 
 
-// 1. EXPAND-ON-HOVER SIDEBAR — admin dashboard
+// 1. EXPAND-ON-HOVER SIDEBAR - admin dashboard
 // ----------------------------------------------------------------------------
 // HTML:
 //   <nav class="expand-on-hover-menu">
@@ -113,7 +113,7 @@
 }
 
 
-// 2. FULL-SCREEN SLIDE-IN MENU — mobile hamburger
+// 2. FULL-SCREEN SLIDE-IN MENU - mobile hamburger
 // ----------------------------------------------------------------------------
 // HTML:
 //   <button class="menu-toggle"><svg ...>...</svg></button>   <!-- hamburger -->
@@ -161,7 +161,7 @@
 }
 
 
-// 3. HALF-SCREEN SLIDE-IN MENU + SHADE — big-screen hamburger
+// 3. HALF-SCREEN SLIDE-IN MENU + SHADE - big-screen hamburger
 // ----------------------------------------------------------------------------
 // HTML:
 //   <button class="menu-toggle"><svg ...></svg></button>
@@ -226,7 +226,7 @@
   }
 }
 
-// A bare clickable box for the hamburger icon — drop your <svg> inside.
+// A bare clickable box for the hamburger icon - drop your <svg> inside.
 @mixin menu-toggle($size: 2.5rem) {
   display: inline-flex;
   align-items: center;
