@@ -23,6 +23,9 @@
   transition: $transition-duration;
   scrollbar-color: $txt-color $bg-color;
   scrollbar-width: thin;
+  // <select multiple> under `appearance: base-select` shows a transient phantom
+  // horizontal scroll region (UA listbox `overflow-inline` fallback). Suppress it.
+  overflow-x: hidden;
 
   &:focus { outline: none; }
 

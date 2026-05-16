@@ -160733,6 +160733,7 @@ nav {
   transition: 0.4s;
   scrollbar-color: #f5ebd0 #7f011f;
   scrollbar-width: thin;
+  overflow-x: hidden;
 }
 .default-select:focus {
   outline: none;
