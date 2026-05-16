@@ -1,14 +1,14 @@
 @use "sass:map";
 @use "../variables";
 
-// "Radio input container" — a scrollable list of button-rows styled to look like
+// "Radio input container" - a scrollable list of button-rows styled to look like
 // an open native <select>. Use when you need full control over the option rows
 // (icons, custom layout, etc.) instead of real <option> elements. There are no
-// real radio inputs here — the .default-radio-input-btn rows act as the
+// real radio inputs here - the .default-radio-input-btn rows act as the
 // selectable items, toggled via a .selected class on the active row.
 //
 // A row can hold: an optional leading icon (an <svg>/<img>, or a plain <div>
-// you style yourself — e.g. a checkbox-like square that you swap on selection),
+// you style yourself - e.g. a checkbox-like square that you swap on selection),
 // a primary <h3> label, and an optional second <h3> pushed to the right (handy
 // for a count like `[ 12 ]`, mirroring the Gaming Shop genre/dev filters).
 //

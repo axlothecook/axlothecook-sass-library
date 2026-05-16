@@ -6,21 +6,20 @@
 // Three footer flavours, each a self-contained mixin + ready-to-use `.default-*`
 // (or named) class. None depends on the others.
 //
-//  1. `default-footer`  — a plain one-line bar (logo/svg + a line of text),
-//     centred. Modelled on the Gaming Shop `<footer>`.
-//  2. `store-footer`    — a tall coloured band with a stacked content column
-//     (link grids, document rows, a github row). Modelled on the Food-For-Dollar
-//     footer.
-//  3. `club-footer`     — a coloured band with a wrapping row of text columns,
-//     a divider, and a sponsor-logo row. Modelled on the VSK-archeryClub footer.
+//  1. `default-footer`  - a plain one-line bar (logo/svg + a line of text),
+//     centred. 
+//  2. `store-footer`    - a tall coloured band with a stacked content column
+//     (link grids, document rows, a github row). 
+//  3. `club-footer`     - a coloured band with a wrapping row of text columns,
+//     a divider, and a sponsor-logo row. 
 //
 // For 2 & 3 the library can only really give you the layout skeleton (these are
-// just nested flex/grid boxes with different alignment) — the exact link text,
+// just nested flex/grid boxes with different alignment) - the exact link text,
 // icons, headings etc. are app content you drop inside, styled with utility
 // classes or scoped rules.
 
 
-// 1. SIMPLE BAR — Gaming Shop style
+// 1. SIMPLE BAR (gaming shop style)
 // ----------------------------------------------------------------------------
 // HTML:
 //   <footer class="default-footer">
@@ -65,14 +64,14 @@
 }
 
 
-// 2. STORE FOOTER — Food-For-Dollar style
+// 2. STORE FOOTER
 // ----------------------------------------------------------------------------
 // Outer <footer> = the coloured band. Inside, drop ONE content column
 // (`.store-footer-content`) that stacks its sections with a big gap and is
 // inset from the edges by $content-margin. Sections inside it use the helpers
 // below (or your own utilities):
-//   .store-footer-links  — a multi-column grid of link lists.
-//   .store-footer-row    — a centred horizontal row (document links, github row…).
+//   .store-footer-links  - a multi-column grid of link lists.
+//   .store-footer-row    - a centred horizontal row (document links, github row…).
 //
 // HTML:
 //   <footer class="store-footer">
@@ -131,13 +130,13 @@
 }
 
 
-// 3. CLUB FOOTER — VSK-archeryClub style
+// 3. CLUB FOOTER 
 // ----------------------------------------------------------------------------
 // Outer <footer> = the coloured band, a column that wraps. Inside:
-//   .club-footer-columns  — a wrapping ROW of text columns, inset by $columns-margin.
-//   .club-footer-col      — one such column (stacked, with a right gap to the next).
-//   hr (inside .club-footer) — a thin light divider, $divider-width wide, centred.
-//   .club-footer-sponsors — a centred, wrapping row of sponsor logos with a big gap.
+//   .club-footer-columns  - a wrapping ROW of text columns, inset by $columns-margin.
+//   .club-footer-col      - one such column (stacked, with a right gap to the next).
+//   hr (inside .club-footer) - a thin light divider, $divider-width wide, centred.
+//   .club-footer-sponsors - a centred, wrapping row of sponsor logos with a big gap.
 //
 // HTML:
 //   <footer class="club-footer">

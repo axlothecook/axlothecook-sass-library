@@ -1,9 +1,9 @@
 @use "sass:map";
 @use "../variables";
 
-// Native <select> styling — opt-in via class instead of a global element selector.
+// Native <select> styling - opt-in via class instead of a global element selector.
 // Works with single and `multiple` selects. Options can hold rich content
-// (e.g. an <svg>/<img> icon + an <h3>/<h4> label + a secondary <h3> count) —
+// (e.g. an <svg>/<img> icon + an <h3>/<h4> label + a secondary <h3> count) -
 // the consumer supplies their own selected/unselected icon swap; the library
 // only lays the row out and hides the browser's default ::checkmark glyph.
 @mixin default-select(
@@ -34,7 +34,7 @@
     color: $txt-color;
     padding: $option-padding;
     transition: 0.2s;
-    // UA gives <select multiple> listbox options `cursor: default` — force
+    // UA gives <select multiple> listbox options `cursor: default` - force
     // pointer so options read as clickable.
     cursor: pointer;
     // a leading icon (if the option has one) shouldn't shrink
@@ -61,7 +61,7 @@
   @include default-select;
 }
 
-// Global rules — ::picker() targets the <select> element's pseudo-popup, which
+// Global rules - ::picker() targets the <select> element's pseudo-popup, which
 // has no class addressing, so these can't be scoped to .default-select.
 // The opening/closing fade is handled here via @starting-style + allow-discrete.
 select, ::picker(select) {

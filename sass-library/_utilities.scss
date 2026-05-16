@@ -628,7 +628,7 @@ $w-h-fractional-steps: 1, 2, 3, 5, 7, 8;
 // .grid-cols-N gives repeat(N, var(--grid-fr, 1fr)); defaults to 1fr per col.
 // Stack with .grid-fr-M to override the fr unit (e.g. .grid-cols-3 .grid-fr-1-4
 // → grid-template-columns: repeat(3, 1.4fr)).
-// Asymmetric column tracks (1fr 2.2fr etc.) — write inline on the element.
+// Asymmetric column tracks (1fr 2.2fr etc.) - write inline on the element.
 .grid        { display: grid; }
 .grid-inline { display: inline-grid; }
 

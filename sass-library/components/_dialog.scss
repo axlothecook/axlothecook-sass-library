@@ -8,7 +8,7 @@
 
 // The bits every native <dialog> modal needs: no border, a styled ::backdrop,
 // and an optional fade-in/out (opacity + transition-behavior: allow-discrete +
-// @starting-style — animates display/overlay, which are discrete properties;
+// @starting-style - animates display/overlay, which are discrete properties;
 // modern browsers only, graceful elsewhere). Each dialog adds its own width /
 // padding / background / border-radius on top of this.
 @mixin dialog-overlay-base(
@@ -52,12 +52,12 @@
   }
 }
 
-// Confirmation dialog — a small "are you sure?" modal: white box with rounded
+// Confirmation dialog - a small "are you sure?" modal: white box with rounded
 // corners, a message, and an action row of buttons. Opened via .showModal()
 // (the browser renders ::backdrop, traps focus, centers it via margin: auto).
 //
 // The buttons aren't colored here. Give each a library *button* class (carries
-// padding/font/cursor — a bare .bg-* would render a default-sized button), e.g.
+// padding/font/cursor - a bare .bg-* would render a default-sized button), e.g.
 // recommended: <button class="btn-blue-dress">Cancel</button> +
 //              <button class="btn-jet-grey text-white">Confirm</button>.
 // (For a darker shade you'd combine the base + a shade util:

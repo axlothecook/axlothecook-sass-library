@@ -1,7 +1,7 @@
 @use "sass:map";
 @use "../variables";
 
-// Generic input — base padding, radius, font sizing. Caller picks bg/text colors.
+// Generic input - base padding, radius, font sizing. Caller picks bg/text colors.
 @mixin input-base($bg-color: map.get(variables.$colors, "white"), $txt-color: map.get(variables.$colors, "black")) {
   padding: .6rem .5rem;
   border-radius: 7px;

@@ -1,15 +1,9 @@
-@use "sass:math";
 @use "sass:map";
 @use "./variables";
 @use "./utilities";
-@use "./breakpoints";
-
-
-$grid-columns: 12;
 
 // Single gap scale used by both flex AND grid containers (CSS `gap` works on both).
-// Generates .gap-{key}. (Renamed from .flex-gap-*; the old .grid-gap-* generator
-// was removed — it used an obsolete negative-margin/child-padding hack.)
+// Generates .gap-{key}. 
 $gaps: (
   "0":   0,
   "0-1": .1rem,
@@ -67,7 +61,7 @@ $content-layout-values: start, end, flex-start, flex-end, center, space-between,
 
 .reverse-column-wrap {
   display: flex;
-  flex-flow: column-reverse;
+  flex-flow: column-reverse wrap;
 }
 
 .reverse-column-nowrap {
@@ -75,10 +69,12 @@ $content-layout-values: start, end, flex-start, flex-end, center, space-between,
   flex-direction: column-reverse;
 }
 
-// flex-grow — for a flex child to fill (1) or hold (0) the free space on the
-// main axis of its flex parent.
 .flex-grow-0 { flex-grow: 0; }
 .flex-grow-1 { flex-grow: 1; }
+
+// flex: 1 shorthand (grow:1 shrink:1 basis:0) — flex children that should split
+// their parent's main axis into equal parts regardless of content size.
+.flex-1 { flex: 1; }
 
 // base layout classes
 .global-wrapper-parent {
@@ -94,7 +90,7 @@ $content-layout-values: start, end, flex-start, flex-end, center, space-between,
   padding: 0;
 }
 
-// gaps (used by flex AND grid containers — CSS `gap` works on both).
+// gaps used by flex AND grid containers - CSS `gap` works on both.
 @each $key, $val in $gaps {
   .gap-#{$key} { gap: $val; }
 }
@@ -124,70 +120,5 @@ $content-layout-values: start, end, flex-start, flex-end, center, space-between,
 @each $val in $items-layout-values {
   .align-items-#{$val} {
     align-items: $val;
-  }
-}
-
-// col classes
-@include breakpoints.xxs {
-  @for $i from 1 through $grid-columns {
-    .col-#{$i}-xxs {
-      box-sizing: border-box;
-      flex-grow: 0;
-      width: math.div($i * 100%, $grid-columns);
-    }
-  }
-}
-@include breakpoints.xs {
-  @for $i from 1 through $grid-columns {
-    .col-#{$i}-xs {
-      box-sizing: border-box;
-      flex-grow: 0;
-      width: math.div($i * 100%, $grid-columns);
-    }
-  }
-}
-@include breakpoints.sm {
-  @for $i from 1 through $grid-columns {
-    .col-#{$i}-sm {
-      box-sizing: border-box;
-      flex-grow: 0;
-      width: math.div($i * 100%, $grid-columns);
-    }
-  }
-}
-@include breakpoints.md {
-  @for $i from 1 through $grid-columns {
-    .col-#{$i}-md {
-      box-sizing: border-box;
-      flex-grow: 0;
-      width: math.div($i * 100%, $grid-columns);
-    }
-  }
-}
-@include breakpoints.lg {
-  @for $i from 1 through $grid-columns {
-    .col-#{$i}-lg {
-      box-sizing: border-box;
-      flex-grow: 0;
-      width: math.div($i * 100%, $grid-columns);
-    }
-  }
-}
-@include breakpoints.xl {
-  @for $i from 1 through $grid-columns {
-    .col-#{$i}-xl {
-      box-sizing: border-box;
-      flex-grow: 0;
-      width: math.div($i * 100%, $grid-columns);
-    }
-  }
-}
-@include breakpoints.xxl {
-  @for $i from 1 through $grid-columns {
-    .col-#{$i}-xxl {
-      box-sizing: border-box;
-      flex-grow: 0;
-      width: math.div($i * 100%, $grid-columns);
-    }
   }
 }

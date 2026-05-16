@@ -43,10 +43,10 @@
 }
 
 // Centered text overlay laid over an image (absolute, fills the parent, flex
-// centers its content, sizes h1..h4). $frosted: true adds the semi-transparent
-// blurred panel behind the text (the "genre card" look); false (default) leaves
-// it transparent — just text directly on the image. The parent must be
-// position: relative (card-image-base already is).
+// centers its content, sizes h1..h4). 
+// $frosted: true adds the semi-transparent blurred panel behind the text (the "genre card" look); 
+// false (default) leaves it transparent - just text directly on the image. 
+// The parent must be position: relative (card-image-base already is).
 @mixin card-overlay(
   $frosted: true,
   $frosted-bg: rgba(255, 255, 255, 0.2),
@@ -81,8 +81,8 @@
 
 // Two ready-to-use overlay classes. Put one inside an image-area element (e.g.
 // inside a .default-minimal-info-card or a .profile-card-img):
-//   .card-overlay-frosted — text on a semi-transparent blurred panel
-//   .card-overlay-plain   — text directly on the image, no panel
+// .card-overlay-frosted - text on a semi-transparent blurred panel
+// .card-overlay-plain - text directly on the image, no panel
 .card-overlay-frosted {
   @include card-overlay($frosted: true);
 }
@@ -91,13 +91,13 @@
   @include card-overlay($frosted: false);
 }
 
-// Opt-in hover lift — pairs with any card variant.
+// Opt-in hover lift - pairs with any card variant.
 @mixin card-hover-lift($scale: 1.05, $duration: .3s) {
   transition: transform $duration;
   &:hover { transform: scale($scale); }
 }
 
-// 3D flip on hover — rotates 180° around the X-axis to reveal the back face.
+// 3D flip on hover - rotates 180° around the X-axis to reveal the back face.
 // Requires a .card-flip-inner wrapper with .card-front + .card-back children.
 // Exposed standalone so it can wrap any card variant; also used by .default-flip-card.
 @mixin card-flip(
@@ -145,10 +145,10 @@
 }
 
 // ---------------------------------------------------------------------------
-// 1. Informative card — image on top, plain content div below
+// 1. Informative card - image on top, plain content div below
 // ---------------------------------------------------------------------------
 // The bottom div carries only structural styling (bg, padding, radius, shadow);
-// it has no opinions about its contents — the consuming app decides what goes in.
+// it has no opinions about its contents - the consuming app decides what goes in.
 //
 // HTML:
 //   <div class="default-informative-card">
@@ -204,7 +204,7 @@
 }
 
 // ---------------------------------------------------------------------------
-// 2. Minimal-info card — an image area meant to hold a text overlay on top.
+// 2. Minimal-info card - an image area meant to hold a text overlay on top.
 //    Drop a .card-overlay-frosted or .card-overlay-plain inside it for the text.
 // ---------------------------------------------------------------------------
 // HTML:
@@ -237,7 +237,7 @@
 }
 
 // ---------------------------------------------------------------------------
-// 3. Only-image card — just a fading-in image in a rounded box, nothing else
+// 3. Only-image card - just a fading-in image in a rounded box, nothing else
 // ---------------------------------------------------------------------------
 // HTML:
 //   <div class="default-only-image-card"><img class:loaded={...} src="..."></div>
@@ -263,7 +263,7 @@
 }
 
 // ---------------------------------------------------------------------------
-// 4. Flip card — image card that flips on hover (instead of scaling) to reveal
+// 4. Flip card - image card that flips on hover (instead of scaling) to reveal
 //    a back face with text. The .card-front carries the image styling directly.
 // ---------------------------------------------------------------------------
 // HTML:
@@ -311,7 +311,7 @@
 }
 
 // ---------------------------------------------------------------------------
-// 5. Small news card — fixed-width vertical stack: rounded image on top, bare
+// 5. Small news card - fixed-width vertical stack: rounded image on top, bare
 //    title text directly below (no body container, no shadow, no padding wrapper).
 //    The "news feed / caption card" shape. Hover-lift off by default.
 // ---------------------------------------------------------------------------
@@ -351,13 +351,13 @@
 }
 
 // ---------------------------------------------------------------------------
-// 6. Big info card — image + multi-line text overlay (richer text than minimal-info-card).
+// 6. Big info card - image + multi-line text overlay (richer text than minimal-info-card).
 //    Image can come from inline background-image OR a child <img> element.
 //    The text overlay uses padding (not absolute top/margins) and a flex layout
 //    so consumers can position content at bottom-left (default) or top-left
 //    stacked with gaps. Optional .card-tint layer dims the image.
 // ---------------------------------------------------------------------------
-// HTML (option a — inline background-image, bottom-left text):
+// HTML (option a - inline background-image, bottom-left text):
 //   <div class="default-big-info-card" style="background-image: url(...)">
 //     <div class="card-tint"></div>                  <!-- optional -->
 //     <div class="card-text-overlay">
@@ -365,7 +365,7 @@
 //     </div>
 //   </div>
 //
-// HTML (option b — <img> with .loaded fade-in, stacked top-left):
+// HTML (option b - <img> with .loaded fade-in, stacked top-left):
 //   <div class="default-big-info-card">
 //     <img class:loaded={...} src="..." alt="...">
 //     <div class="card-text-overlay" style="flex-direction: column; align-items: flex-start; gap: 1rem">
@@ -414,7 +414,7 @@
     &.loaded { opacity: 1; }
   }
 
-  // Optional tint layer — only styled if $tint-color is passed.
+  // Optional tint layer - only styled if $tint-color is passed.
   .card-tint {
     position: absolute;
     inset: 0;
@@ -447,7 +447,7 @@
 }
 
 // ---------------------------------------------------------------------------
-// 7. Split card — image on the left, content div on the right (2-column grid).
+// 7. Split card - image on the left, content div on the right (2-column grid).
 //    Column ratio injectable; padding between the inner elements and the parent
 //    box injectable: $padding: 0 → flush look (image + content edge-to-edge,
 //    e.g. an archery "front news" poster), $padding: 2rem + a border → a
@@ -492,7 +492,7 @@
     );
   }
 
-  // .split-card-content is a structural slot only — no library styling; the
+  // .split-card-content is a structural slot only - no library styling; the
   // consumer styles what goes inside it.
 }
 
@@ -501,7 +501,7 @@
 }
 
 // ---------------------------------------------------------------------------
-// 8. Profile card — vertical stack for a "thing with a banner image": a banner
+// 8. Profile card - vertical stack for a "thing with a banner image": a banner
 //    image (optionally with a .card-overlay-frosted / .card-overlay-plain text
 //    overlay), a title (an <h2> wrapped in .default-profile-title), and a bare
 //    content slot for everything else. Covers individual genre/dev pages and
@@ -550,7 +550,7 @@
     font-weight: $title-weight;
   }
 
-  // .profile-card-content is a structural slot only — no library styling; the
+  // .profile-card-content is a structural slot only - no library styling; the
   // consumer makes it flex/grid and styles what goes inside.
 }
 

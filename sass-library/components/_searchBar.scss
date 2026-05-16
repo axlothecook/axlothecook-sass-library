@@ -5,18 +5,18 @@
 // SEARCH BAR
 // ============================================================================
 // Three pieces:
-//   1. .simple-search-bar — a real functional search form (input + submit),
+//   1. .simple-search-bar - a real functional search form (input + submit),
 //      e.g. for a navbar. Standalone; no JS beyond the form submit.
-//   2. .fake-search-bar — a div styled to LOOK like a search input but inert.
+//   2. .fake-search-bar - a div styled to LOOK like a search input but inert.
 //      Always visible; clicking it opens .search-bar-dialog. While the dialog
 //      is open, add .dialog-open to the fake bar so it goes visibility:hidden
 //      and doesn't peek out from behind the popup.
-//   3. .search-bar-dialog — a native <dialog>, itself transparent/borderless,
+//   3. .search-bar-dialog - a native <dialog>, itself transparent/borderless,
 //      holding a real input row + a suggestions dropdown. The input row and the
 //      dropdown fuse into one continuous rounded shape (input: rounded top /
-//      square bottom; dropdown: square top / rounded bottom, no top border) —
-//      the Food-For-Dollar look. The dropdown REUSES _radioInput.scss classes
-//      (.default-radio-input-container + .default-radio-input-btn) — picking a
+//      square bottom; dropdown: square top / rounded bottom, no top border) 
+//      The dropdown REUSES _radioInput.scss classes
+//      (.default-radio-input-container + .default-radio-input-btn) - picking a
 //      suggestion is single-select → navigate to a results page, same nature as
 //      a price filter.
 //
@@ -115,7 +115,7 @@
 }
 
 // ---- 3. the search dialog (real input + suggestions dropdown) ------------
-// The <dialog> itself is invisible (transparent, borderless, no padding) — it's
+// The <dialog> itself is invisible (transparent, borderless, no padding) - it's
 // just a positioning + backdrop container. All visible styling lives on the
 // input row and the dropdown, which fuse into one rounded shape.
 @mixin search-bar-dialog(
@@ -138,7 +138,7 @@
   padding: 0;
   background-color: transparent;
 
-  // The real input row — top of the fused shape.
+  // The real input row - top of the fused shape.
   .search-dialog-input {
     display: flex;
     align-items: center;

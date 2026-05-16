@@ -40,23 +40,24 @@ h1, h2, h3, h4, h5, p {
   font-weight: map.get(utilities.$utilities, "font-weight", "values", "400");
 }
 
+// <input>/<button>/<textarea> don't inherit `color` or font family from the
+// document by default (they use the browser's own user-agent values). Force
+// both to inherit so they pick up the cascade like every other element. Also
+// kill the user-agent grey button bg.
+// NOTE: only `font-family` is inherited - NOT the `font` shorthand. The
+// shorthand would also reset font-size/weight/line-height to inherit, which
+// clobbers any class- or inline-set sizing on the element.
 input, button, textarea {
   outline: none;
   border: none;
   background-color: transparent;
-  // <input>/<button>/<textarea> don't inherit `color` or font family from the
-  // document by default (they use the browser's own user-agent values). Force
-  // both to inherit so they pick up the cascade like every other element. Also
-  // kill the user-agent grey button bg.
-  // NOTE: only `font-family` is inherited — NOT the `font` shorthand. The
-  // shorthand would also reset font-size/weight/line-height to inherit, which
-  // clobbers any class- or inline-set sizing on the element.
   color: inherit;
   font-family: inherit;
 }
+
+/* border: none removed - let the consumer's border persist through hover/focus */
 input:focus, button:hover, button:focus, textarea:hover, textarea:focus {
   outline: none;
-  /* border: none removed — let the consumer's border persist through hover/focus */
 }
 
 button, label {
@@ -68,6 +69,6 @@ a {
   color: inherit;
 }
 
-// Intentionally no global hover-color rule — by design, hovering an <a> or <li>
+// Intentionally no global hover-color rule - by design, hovering an <a> or <li>
 // does NOT change colour (text stays inherited from :root). Apply hover styling
 // per-component when needed.
