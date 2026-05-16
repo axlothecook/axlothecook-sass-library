@@ -61,13 +61,7 @@
 // Global rules — ::picker() targets the <select> element's pseudo-popup, which
 // has no class addressing, so these can't be scoped to .default-select.
 // The opening/closing fade is handled here via @starting-style + allow-discrete.
-//
-// `appearance: base-select` (the CSS Customizable Select API) is only specified
-// for single-value <select>. Applying it to <select multiple> conflicts with
-// the browser's UA `select:-internal-list-box { appearance: auto }`, producing
-// a transient phantom horizontal scroll region that collapses on interaction.
-// Scope it to :not([multiple]); the picker popup only exists for single selects.
-select:not([multiple]), ::picker(select) {
+select, ::picker(select) {
   appearance: base-select;
 }
 
