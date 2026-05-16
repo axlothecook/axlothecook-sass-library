@@ -28,11 +28,14 @@
   color: $color;
 }
 
-// Ready-to-use: the Gaming Shop form-input style (white bg, no border, .6rem .5rem padding).
+// Ready-to-use: the gaming shop form-input style (white bg, no border, .6rem .5rem padding).
 .form-input {
   @include input-base;
 }
 
+// if you didn't understand what claude is trying to demonstrate - basically this is format for form that has that
+// small grey / red text beneath input field that warns the user / gives more info about input example / what not to do
+// etc 
 // HTML: <div class="form-field"><label for="x">...</label><input class="form-input" id="x"><h4 class="form-hint">* hint</h4></div>
 .form-field {
   @include form-field;
