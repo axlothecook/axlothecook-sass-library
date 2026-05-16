@@ -160758,7 +160758,7 @@ nav {
   display: none;
 }
 
-select, ::picker(select) {
+select:not([multiple]), ::picker(select) {
   appearance: base-select;
 }
 
