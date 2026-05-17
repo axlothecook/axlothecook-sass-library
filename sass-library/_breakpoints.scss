@@ -57,3 +57,44 @@ $breakpoints: (
     @content;
   }
 }
+
+// Desktop-first (max-width) counterparts of the breakpoints above. Use these
+// when the base styles are the WIDE layout and you narrow down for smaller
+// screens. `max-width: N` matches up to AND including N, so each value is
+// nudged down by 0.02px to avoid a 1px overlap with the min-width mixins at
+// the same breakpoint (the standard sub-pixel offset technique).
+@mixin xs-down {
+  @media (max-width: #{map.get($breakpoints, "xs") - 0.02}) {
+    @content;
+  }
+}
+
+@mixin sm-down {
+  @media (max-width: #{map.get($breakpoints, "sm") - 0.02}) {
+    @content;
+  }
+}
+
+@mixin md-down {
+  @media (max-width: #{map.get($breakpoints, "md") - 0.02}) {
+    @content;
+  }
+}
+
+@mixin lg-down {
+  @media (max-width: #{map.get($breakpoints, "lg") - 0.02}) {
+    @content;
+  }
+}
+
+@mixin xl-down {
+  @media (max-width: #{map.get($breakpoints, "xl") - 0.02}) {
+    @content;
+  }
+}
+
+@mixin xxl-down {
+  @media (max-width: #{map.get($breakpoints, "xxl") - 0.02}) {
+    @content;
+  }
+}
