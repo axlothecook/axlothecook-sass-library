@@ -30,6 +30,7 @@
 @use 'components/navbar';
 @use 'components/notification';
 @use 'components/radioInput';
+@use 'components/scrollbar';
 @use 'components/searchBar';
 @use 'components/select';
 @use 'components/spinner';
@@ -57,6 +58,7 @@
 @forward 'components/navbar';
 @forward 'components/notification';
 @forward 'components/radioInput';
+@forward 'components/scrollbar';
 @forward 'components/searchBar';
 @forward 'components/select';
 @forward 'components/spinner';
