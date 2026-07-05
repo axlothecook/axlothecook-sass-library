@@ -1,0 +1,40 @@
+// Custom scrollbar — a thin, rounded scrollbar with the OS stepper arrows removed.
+//
+// Two ways to use it:
+//   1. Utility class: add `class="custom-scrollbar"` to any scrolling element.
+//   2. Mixin: `@include custom-scrollbar;` inside a scoped block (optionally pass a
+//      thumb colour + size, e.g. `@include custom-scrollbar($thumb: #333, $size: 10px)`).
+//
+// Webkit-only on purpose: setting the standard `scrollbar-width`/`scrollbar-color`
+// makes Chromium switch to the standard scrollbar and IGNORE the ::-webkit rules,
+// which leaves the native stepper arrows visible. Using only the webkit path lets the
+// custom thumb + arrow-removal actually apply. Firefox shows its default thin bar,
+// which is acceptable.
+
+@mixin custom-scrollbar($thumb: #102e66, $size: 8px, $radius: 4px) {
+	&::-webkit-scrollbar {
+		width: $size;
+		height: $size;
+	}
+	&::-webkit-scrollbar-track {
+		background: transparent;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: $thumb;
+		border-radius: $radius;
+	}
+	&::-webkit-scrollbar-corner {
+		background: transparent;
+	}
+	// No stepper arrows at the ends of the scrollbar (all directions/positions).
+	&::-webkit-scrollbar-button {
+		display: none;
+		width: 0;
+		height: 0;
+	}
+}
+
+// Ready-to-use utility class (navy thumb, 8px).
+.custom-scrollbar {
+	@include custom-scrollbar;
+}
