@@ -33,6 +33,88 @@
   }
 }
 
-.default-error-popup-wrapper {
-  @include default-error-popup-wrapper;
+// Persistent, dismissible variant - a fixed stack pinned TOP-CENTER (with a gap from
+// the top edge) that does NOT auto-fade. Each message is its own card with an X button
+// on the right (vertically centred), so the user closes them one by one. Use for
+// input/form validation warnings (so they don't stack inline and push the page down).
+// HTML:
+//   <ul class="persistent-error-popup-wrapper">
+//     <li><span class="msg">Naslov je obavezan.</span>
+//         <button class="close" aria-label="Zatvori">x</button></li>
+//     ...
+//   </ul>
+@mixin persistent-error-popup-wrapper(
+  $top: 1.5rem,
+  $gap: 0.6rem,
+  $text-color: map.get(variables.$colors, "orange"),
+  $bg-color: map.get(variables.$colors, "error-primary"),
+  $radius: 8px,
+  $z-index: 200
+) {
+  position: fixed;
+  top: $top;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  max-width: calc(100vw - 2rem);
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $gap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: $z-index;
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.9rem;
+    width: 100%;
+    color: $text-color;
+    font-weight: bold;
+    list-style-type: none;
+    background-color: $bg-color;
+    padding: 0.65rem 0.65rem 0.65rem 1rem;
+    border-radius: $radius;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+  }
+
+  // X button: square, vertically centred (equal distance top/bottom via align-items),
+  // inherits the message colour.
+  .close {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    padding: 0;
+    border: 0;
+    border-radius: 5px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    line-height: 1;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+  }
+}
+
+// Emit the ready-to-use global classes. Called ONLY from the aggregate index.scss (or a
+// consumer that wants the default classes) — kept out of the module body so that
+// `@use`-ing this partial purely for a mixin (e.g. in a scoped Svelte component) does
+// NOT emit these classes (which would show up as unused-selector warnings there).
+@mixin emit-error-popup-classes {
+  .default-error-popup-wrapper {
+    @include default-error-popup-wrapper;
+  }
+  .persistent-error-popup-wrapper {
+    @include persistent-error-popup-wrapper;
+  }
 }
