@@ -36,6 +36,11 @@
 @use 'components/spinner';
 @use 'components/textarea';
 
+// Emit the error-popup global classes (.default-/.persistent-error-popup-wrapper). These
+// live behind a mixin in the partial so `@use`-ing it for a mixin alone (scoped Svelte
+// styles) doesn't emit them; the aggregate stylesheet opts in here.
+@include errorPopup.emit-error-popup-classes;
+
 // Re-export the partials whose Sass API (variables, mixins, functions) consumers
 // are expected to use directly. After `@use 'axlothecook-sass-library/sass-library' as *;`
 // a consumer can write `$primary`, `breakpoints.sm`, `@include default-footer(...)`,
