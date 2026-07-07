@@ -43,19 +43,24 @@
 //         <button class="close" aria-label="Zatvori">x</button></li>
 //     ...
 //   </ul>
+// $width: pass a fixed width (e.g. 32rem) so every card is the SAME width and that width
+// stays constant as messages are dismissed (a stable, professional stack). Defaults to
+// `fit-content` (width = the widest CURRENT card, shrinking as cards close) for backward
+// compatibility. The <li> cards always fill the wrapper (width: 100%).
 @mixin persistent-error-popup-wrapper(
   $top: 1.5rem,
   $gap: 0.6rem,
   $text-color: map.get(variables.$colors, "orange"),
   $bg-color: map.get(variables.$colors, "error-primary"),
   $radius: 8px,
-  $z-index: 200
+  $z-index: 200,
+  $width: fit-content
 ) {
   position: fixed;
   top: $top;
   left: 50%;
   transform: translateX(-50%);
-  width: fit-content;
+  width: $width;
   max-width: calc(100vw - 2rem);
   height: fit-content;
   display: flex;
