@@ -1,5 +1,5 @@
 # axlothecook-sass-library
-My own SASS/SCSS library. Bc I don't like Tailwind and Bootstrap, and CSS3 is limiting.
+My own SASS/SCSS library. Bc I don't like Tailwind and Bootstrap, and CSS3 is limiting. 
 
 ## What does it do?
 Basically a mix of Tailwind and Bootstrap. Offers:
